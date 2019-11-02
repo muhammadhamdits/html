@@ -1,6 +1,6 @@
 <?php
 require '../../connect.php';
-$id = @$_GET["id"];
+$id = $_GET["id"];
 //echo "woiiiiiiiiiiiiiiiiiiiii $id";
 //DATA TOURISM
 $query = "SELECT tourism.id, tourism.name, tourism.address, tourism.open, tourism.close, tourism.ticket, tourism_type.name as tourism_type, st_x(st_centroid(tourism.geom)) as lon, st_y(st_centroid(tourism.geom)) as lat from tourism left join tourism_type on tourism_type.id=tourism.id_type where tourism.id ='$id'";
@@ -76,7 +76,7 @@ while($baris = pg_fetch_array($hasil3)){
 		     	</div>
 		     	 <?php 
                      
-                      $id = @$_GET["id"];
+                      $id = $_GET["id"];
                       //echo "ini $id";
 
                       if(strpos($id,"H") !== false){
@@ -123,7 +123,7 @@ while($baris = pg_fetch_array($hasil3)){
 			        <div class="panel-body">
                         <div class="html5gallery" style="max-height:700px;overflow:auto;" data-skin="horizontal" data-width="350" data-height="200" data-resizemode="fit">  
 				    	<?php
-							$id=@$_GET['id'];
+							$id=$_GET['id'];
 							$querysearch="SELECT gallery_tourism FROM tourism_gallery where id='$id'";
 							$hasil=pg_query($querysearch);			 
 							$xx = 0;

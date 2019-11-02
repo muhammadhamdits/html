@@ -21,7 +21,7 @@
     */
 
     //AWAL
-    $querysearch="SELECT id, geom, st_distance_sphere(ST_GeomFromText('POINT(".$lng1." ".$lat1.")',-1), geom) as jarak FROM angkot where st_distance_sphere(ST_GeomFromText('POINT(".$lng1." ".$lat1.")',-1), geom) <= ".$rad.""; 
+    $querysearch="SELECT id, geom, ST_DistanceSphere(ST_GeomFromText('POINT(".$lng1." ".$lat1.")',-1), geom) as jarak FROM angkot where ST_DistanceSphere(ST_GeomFromText('POINT(".$lng1." ".$lat1.")',-1), geom) <= ".$rad.""; 
 	$hasil=pg_query($querysearch);
 
     //HIMPUN DATA ANGKOT YANG DEKAT DENGAN POSISI AWAL
@@ -41,7 +41,7 @@
 
 
     //TUJUAN
-    $querysearch="SELECT id, geom, st_distance_sphere(ST_GeomFromText('POINT(".$lng2." ".$lat2.")',-1), geom) as jarak FROM angkot where st_distance_sphere(ST_GeomFromText('POINT(".$lng2." ".$lat2.")',-1), geom) <= ".$rad.""; 
+    $querysearch="SELECT id, geom, ST_DistanceSphere(ST_GeomFromText('POINT(".$lng2." ".$lat2.")',-1), geom) as jarak FROM angkot where ST_DistanceSphere(ST_GeomFromText('POINT(".$lng2." ".$lat2.")',-1), geom) <= ".$rad.""; 
     $hasil=pg_query($querysearch);
 
     $geom_tujuan=array();
@@ -113,7 +113,7 @@
         $x=0;
         for ($i=0; $i < count($angkot_tujuan); $i++) { 
 
-            $querysearch="SELECT id, geom, st_distance_sphere('".$geom_tujuan[$i]."', geom) as jarak FROM angkot where st_distance_sphere('".$geom_tujuan[$i]."', geom) <= ".$rad.""; 
+            $querysearch="SELECT id, geom, ST_DistanceSphere('".$geom_tujuan[$i]."', geom) as jarak FROM angkot where ST_DistanceSphere('".$geom_tujuan[$i]."', geom) <= ".$rad.""; 
 
             $hasil=pg_query($querysearch);
             

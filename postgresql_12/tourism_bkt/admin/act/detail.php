@@ -1,9 +1,9 @@
 <?php 
 include ('../../connect.php');
 session_start();
-$id = @$_GET["id"];
-$id_hotel = @$_SESSION['id'];
-$username = @$_SESSION['username'];
+$id = $_GET["id"];
+$id_hotel = $_SESSION['id'];
+$username = $_SESSION['username'];
 // echo "$id --> id <br>";
 // echo "$id_hotel --> id_hotel " ;
 // echo "$username --> username " ;

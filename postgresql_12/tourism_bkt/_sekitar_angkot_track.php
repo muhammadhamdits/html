@@ -20,7 +20,7 @@
 
     //AWAL
     echo " <br> AWAL<br>";
-	$querysearch="SELECT id_angkot, geom, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, st_distance_sphere(ST_GeomFromText('POINT(".$lng1." ".$lat1.")',-1), geom) as jarak FROM angkot where st_distance_sphere(ST_GeomFromText('POINT(".$lng1." ".$lat1.")',-1), geom) <= ".$rad.""; 
+	$querysearch="SELECT id_angkot, geom, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, ST_DistanceSphere(ST_GeomFromText('POINT(".$lng1." ".$lat1.")',-1), geom) as jarak FROM angkot where ST_DistanceSphere(ST_GeomFromText('POINT(".$lng1." ".$lat1.")',-1), geom) <= ".$rad.""; 
 	$hasil=pg_query($querysearch);
 
     //HIMPUN DATA ANGKOT YANG DEKAT DENGAN POSISI AWAL
@@ -49,7 +49,7 @@
         $id_angkot=$angkot_output[$i][0][0];
         $kon = $kon."and id_angkot != '".$id_angkot."' ";
 
-        $querysearch2="SELECT id_angkot, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, st_distance_sphere(ST_GeomFromText('POINT(".$lng2." ".$lat2.")',-1), geom) as jarak FROM angkot where st_distance_sphere(ST_GeomFromText('POINT(".$lng2." ".$lat2.")',-1), geom) <= ".$rad." and id_angkot ='".$id_angkot."'"; 
+        $querysearch2="SELECT id_angkot, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, ST_DistanceSphere(ST_GeomFromText('POINT(".$lng2." ".$lat2.")',-1), geom) as jarak FROM angkot where ST_DistanceSphere(ST_GeomFromText('POINT(".$lng2." ".$lat2.")',-1), geom) <= ".$rad." and id_angkot ='".$id_angkot."'"; 
         $hasil2=pg_query($querysearch2);
 
         while ($baris2 = pg_fetch_array($hasil2)) {
@@ -84,7 +84,7 @@
         $geom = $angkot_output[$i][0][1];
         echo "mulai <br>";
         echo "<br> $id <br> ";
-        $querysearch2="SELECT id_angkot, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, st_distance_sphere( '".$geom."' , geom) as jarak FROM angkot where st_distance_sphere('".$geom."', geom) <= ".$rad." ".$kon.""; 
+        $querysearch2="SELECT id_angkot, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, ST_DistanceSphere( '".$geom."' , geom) as jarak FROM angkot where ST_DistanceSphere('".$geom."', geom) <= ".$rad." ".$kon.""; 
 
         $hasil2=pg_query($querysearch2);
         $x=1;
@@ -106,7 +106,7 @@
 
     //TUJUAN
     echo " <br><br> TUJUAN<br>";
-    $querysearch="SELECT id_angkot, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, st_distance_sphere(ST_GeomFromText('POINT(".$lng2." ".$lat2.")',-1), geom) as jarak FROM angkot where st_distance_sphere(ST_GeomFromText('POINT(".$lng2." ".$lat2.")',-1), geom) <= ".$rad.""; 
+    $querysearch="SELECT id_angkot, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, ST_DistanceSphere(ST_GeomFromText('POINT(".$lng2." ".$lat2.")',-1), geom) as jarak FROM angkot where ST_DistanceSphere(ST_GeomFromText('POINT(".$lng2." ".$lat2.")',-1), geom) <= ".$rad.""; 
     $hasil=pg_query($querysearch);
 
     $angkot_tujuan=array();

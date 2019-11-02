@@ -8,7 +8,7 @@
                       <div class="form-group">
                      
                         <form class="form-horizontal style-form" role="form" action="act/pass_change.php" method="post">
-						<input type="text" class="form-control hidden" name="user" value="<?php echo @$_SESSION['username'] ?>">
+						<input type="text" class="form-control hidden" name="user" value="<?php echo $_SESSION['username'] ?>">
         <div class="form-group">
           <label class="col-sm-2 col-sm-2 control-label" for="passlama"><span style="color:red">*</span> Old Password</label>
           <div class="col-sm-10">

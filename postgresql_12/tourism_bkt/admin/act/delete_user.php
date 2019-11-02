@@ -1,6 +1,6 @@
 <?php
 include ('../../../connect.php');
-$id = @$_GET['id'];
+$id = $_GET['id'];
 echo $id;
 	
 	$sql   = "DELETE from admin where username='$id'";

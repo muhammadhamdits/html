@@ -7,7 +7,7 @@ $idmax = $result['id'];
 if ($idmax==null) {$idmax=1;}
 else {$idmax++;}
 
-$fasilitas = @$_POST['fasilitas'];
+$fasilitas = $_POST['fasilitas'];
 $count = count($fasilitas);
 $sql  = "insert into facility_tourism (id, name) VALUES "; 
 

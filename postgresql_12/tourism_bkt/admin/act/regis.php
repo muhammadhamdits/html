@@ -4,13 +4,13 @@ include ('../../../connect.php');
 error_reporting(E_ALL);
 ini_set('display_errors', 'On');  
 
-$nama = @$_POST['nama'];
-$username = @$_POST['username'];
-$password = md5(md5(@$_POST['password']));
-$cp = @$_POST['hp'];
-$address = @$_POST['address'];
-$role = @$_POST['role'];
-$emailadd = @$_POST['email'];
+$nama = $_POST['nama'];
+$username = $_POST['username'];
+$password = md5(md5($_POST['password']));
+$cp = $_POST['hp'];
+$address = $_POST['address'];
+$role = $_POST['role'];
+$emailadd = $_POST['email'];
 
 $uname = pg_num_rows(pg_query("SELECT * from admin where username='$username'"));
 if($uname > 0)
@@ -27,8 +27,8 @@ else
     $cek = pg_query($query);
   
   $token = date("Ymdhi").$username;
-  @$_SESSION['token']=$token;
-  @$_SESSION['user']=$username;
+  $_SESSION['token']=$token;
+  $_SESSION['user']=$username;
 $homepage = file_get_contents("../../../mailtemplate.php");
 
   if($cek)

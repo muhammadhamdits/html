@@ -130,10 +130,10 @@ require '../connect.php';
         $lat_hotel = $output_hotel[$objek][2];     
         $long_hotel = $output_hotel[$objek][3];     
 
-        $querysearch="SELECT id, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, st_distance_sphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) as jarak FROM small_industry where st_distance_sphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) <= 500 "; 
+        $querysearch="SELECT id, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, ST_DistanceSphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) as jarak FROM small_industry where ST_DistanceSphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) <= 500 "; 
         $hasil=pg_query($querysearch);
 
-        $querysearch2="SELECT id, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, st_distance_sphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) as jarak FROM small_industry where st_distance_sphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) <= 1000 "; 
+        $querysearch2="SELECT id, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, ST_DistanceSphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) as jarak FROM small_industry where ST_DistanceSphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) <= 1000 "; 
         $hasil2=pg_query($querysearch2);
 
         //PANJANG BARIS
@@ -156,10 +156,10 @@ require '../connect.php';
         $lat_hotel = $output_hotel[$objek][2];     
         $long_hotel = $output_hotel[$objek][3];     
 
-        $querysearch="SELECT id, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, st_distance_sphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) as jarak FROM culinary_place where st_distance_sphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) <= 500"; 
+        $querysearch="SELECT id, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, ST_DistanceSphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) as jarak FROM culinary_place where ST_DistanceSphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) <= 500"; 
         $hasil=pg_query($querysearch);
 
-        $querysearch2="SELECT id_kuliner, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, st_distance_sphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) as jarak FROM culinary_place where st_distance_sphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) <= 1000"; 
+        $querysearch2="SELECT id_kuliner, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, ST_DistanceSphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) as jarak FROM culinary_place where ST_DistanceSphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) <= 1000"; 
         $hasil2=pg_query($querysearch2);
 
         //PANJANG BARIS
@@ -183,10 +183,10 @@ require '../connect.php';
         $lat_hotel = $output_hotel[$objek][2];     
         $long_hotel = $output_hotel[$objek][3];     
 
-        $querysearch="SELECT id, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, st_distance_sphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) as jarak FROM worship_place where st_distance_sphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) <= 500"; 
+        $querysearch="SELECT id, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, ST_DistanceSphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) as jarak FROM worship_place where ST_DistanceSphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) <= 500"; 
         $hasil=pg_query($querysearch);
 
-        $querysearch2="SELECT id, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, st_distance_sphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) as jarak FROM worship_place where st_distance_sphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) <= 1000 "; 
+        $querysearch2="SELECT id, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, ST_DistanceSphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) as jarak FROM worship_place where ST_DistanceSphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) <= 1000 "; 
         $hasil2=pg_query($querysearch2);
 
         //PANJANG BARIS
@@ -210,10 +210,10 @@ require '../connect.php';
         $lat_hotel = $output_hotel[$objek][2];     
         $long_hotel = $output_hotel[$objek][3];     
 
-        $querysearch="SELECT id, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, st_distance_sphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) as jarak FROM souvenir where st_distance_sphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) <= 500 "; 
+        $querysearch="SELECT id, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, ST_DistanceSphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) as jarak FROM souvenir where ST_DistanceSphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) <= 500 "; 
         $hasil=pg_query($querysearch);
 
-        $querysearch2="SELECT id, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, st_distance_sphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) as jarak FROM souvenir where st_distance_sphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) <= 1000 "; 
+        $querysearch2="SELECT id, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, ST_DistanceSphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) as jarak FROM souvenir where ST_DistanceSphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) <= 1000 "; 
         $hasil2=pg_query($querysearch2);
 
         //PANJANG BARIS
@@ -236,10 +236,10 @@ require '../connect.php';
         $lat_hotel = $output_hotel[$objek][2];     
         $long_hotel = $output_hotel[$objek][3];     
 
-        $querysearch="SELECT id, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, st_distance_sphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) as jarak FROM _tourism where st_distance_sphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) <= 500"; 
+        $querysearch="SELECT id, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, ST_DistanceSphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) as jarak FROM _tourism where ST_DistanceSphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) <= 500"; 
         $hasil=pg_query($querysearch);
 
-        $querysearch2="SELECT id, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, st_distance_sphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) as jarak FROM _tourism where st_distance_sphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) <= 1000"; 
+        $querysearch2="SELECT id, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, ST_DistanceSphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) as jarak FROM _tourism where ST_DistanceSphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) <= 1000"; 
         $hasil2=pg_query($querysearch2);
 
         //PANJANG BARIS
@@ -262,10 +262,10 @@ require '../connect.php';
         $lat_hotel = $output_hotel[$objek][2];     
         $long_hotel = $output_hotel[$objek][3];     
 
-        $querysearch="SELECT id, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, st_distance_sphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) as jarak FROM angkot where st_distance_sphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) <= 500"; 
+        $querysearch="SELECT id, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, ST_DistanceSphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) as jarak FROM angkot where ST_DistanceSphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) <= 500"; 
         $hasil=pg_query($querysearch);
 
-        $querysearch2="SELECT id, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, st_distance_sphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) as jarak FROM angkot where st_distance_sphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) <= 1000"; 
+        $querysearch2="SELECT id, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, ST_DistanceSphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) as jarak FROM angkot where ST_DistanceSphere(ST_GeomFromText('POINT(".$long_hotel." ".$lat_hotel.")',-1), geom) <= 1000"; 
         $hasil2=pg_query($querysearch2);
 
 

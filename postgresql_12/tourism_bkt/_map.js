@@ -604,7 +604,7 @@
                 var row = rows[i];
                 var id = row.id;
                 var name = row.name;
-                console.log(id);
+                // console.log(id);
                 var latitude=row.lat;
                 var longitude = row.lng;
                 $('#kanan_table').append("<tr><td>"+name+"</td><td><a role='button' class='btn btn-success fa fa-info' title='info' onclick='data_tourism_1_info(\""+id+"\")'></a></td><td><a role='button' class='btn btn-danger fa fa-taxi' title='Angkot' onclick='angkot_sekitar(\""+id+"\")'></a></td></tr>");  
@@ -742,7 +742,7 @@
       *********************************************************************************************************************************************************** */
 
       function cari_tourism(tipe){ // PENCARIAN ANGKUTAN KOTA
-          console.log("menu jalan")
+          // console.log("menu jalan")
           hapus_menu();   
           hapus_Semua();
 
@@ -812,17 +812,14 @@
             {
               alert('Data Did Not Exist !');
             }
-              console.log(rows);
-              for (var i in rows){ 
-                var row   = rows[i];
+              rowtw = rows[0];
+              rowm  = rows[1];
+              for (var i in rowtw){ 
+                var row   = rowtw[i];
                 var id    = row.id;
                 var name  = row.name;
                 var lng   = row.lng;
                 var lat   = row.lat;
-                var idm   = row.idm;
-                var namem = row.namem;
-                var lngm  = row.lngm;
-                var latm  = row.latm;
                 $('#kanan_table').append("<tr><td>"+name+"</td><td><a role='button' class='btn btn-default fa fa-info' onclick='data_tourism_1_info(\""+id+"\")'>&nbsp&nbsp&nbspInfo</a><a role='button' style='margin:5px' class='btn btn-default' onclick='route_sekitar(\""+pos_lat+"\",\""+pos_lng+"\",\""+lat+"\",\""+lng+"\")'>Route</a></td></tr>");  
 
                 //MARKER
@@ -837,17 +834,26 @@
                   });
                 markersDua.push(marker);
                 klikInfoWindow(id,marker);
-                
-                centerBarum = new google.maps.LatLng(latm, lngm);
-                var markerm = new google.maps.Marker({
-                  position: centerBarum,              
+              }//end for               
+              for (var i in rowm){ 
+                var row   = rowm[i];
+                var id    = row.id;
+                var name  = row.name;
+                var lng   = row.lng;
+                var lat   = row.lat;
+                //MARKER
+                centerBaru = new google.maps.LatLng(lat, lng);
+                map.setCenter(centerBaru);
+                map.setZoom(16);  
+                var marker = new google.maps.Marker({
+                  position: centerBaru,              
                   icon:'icon/marker_masjid.png',
                   animation: google.maps.Animation.DROP,
                   map: map
                   });
-                markersDua.push(markerm);
-                klikInfoWindowMes(idm,markerm);
-              }//end for               
+                markersDua.push(marker);
+                klikInfoWindowMes(id,marker);
+              }//end for
           }});//end ajax 
       }
 

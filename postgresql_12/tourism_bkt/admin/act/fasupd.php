@@ -1,8 +1,8 @@
 <?php
 include ('../../../connect.php');
-$id = @$_POST['id'];
-$id_fasilitas = @$_POST['id_fasilitas'];
-$fasilitas = @$_POST['fasilitas'];
+$id = $_POST['id'];
+$id_fasilitas = $_POST['id_fasilitas'];
+$fasilitas = $_POST['fasilitas'];
 
 $sqldel = "delete from detail_facility where id_worship_place='$id'";
 $delete = pg_query($sqldel);

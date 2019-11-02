@@ -1,10 +1,10 @@
 <?php 
 session_start();
 include '../../../connect.php';
-$id = @$_POST['id'];
-$nama = @$_SESSION['username'];
-$info = @$_POST['info'];
-//$user = @$_SESSION['userusername'];
+$id = $_POST['id'];
+$nama = $_SESSION['username'];
+$info = $_POST['info'];
+//$user = $_SESSION['userusername'];
 //echo "ini id $id, ini user $user, ini info $info, $role,$nama";
 
 $cariMax = "select max(id_informasi) as max from information_admin";
@@ -37,12 +37,12 @@ if(strpos($id,"H") !== false){
 $query_sql = pg_query($sql);
 if($query_sql){
 	echo "<script>alert ('Data Successfully Added');</script>";
-	if(@$_SESSION['A']===true){
-	header("location:../?page=hotel_detail&id=$id");}
-	else{
-		header("location:../indexu.php?page=hotel_detail&id=$id");}
+	if($_SESSION['A']===true){
+		header("location:../?page=hotel_detail&id=$id");
+	} else{
+		header("location:../indexu.php?page=hotel_detail&id=$id");
 	}
-}else{
+} else{
 	echo "<script>alert ('Error');</script>";
 }
 

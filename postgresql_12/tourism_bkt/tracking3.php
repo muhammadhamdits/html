@@ -23,7 +23,7 @@
     */
 
     //AWAL
-    $querysearch="SELECT id, geom, st_distance_sphere(ST_GeomFromText('POINT(".$lng1." ".$lat1.")',-1), geom) as jarak FROM angkot where st_distance_sphere(ST_GeomFromText('POINT(".$lng1." ".$lat1.")',-1), geom) <= ".$rad.""; 
+    $querysearch="SELECT id, geom, ST_DistanceSphere(ST_GeomFromText('POINT(".$lng1." ".$lat1.")',-1), geom) as jarak FROM angkot where ST_DistanceSphere(ST_GeomFromText('POINT(".$lng1." ".$lat1.")',-1), geom) <= ".$rad.""; 
 	$hasil=pg_query($querysearch);
 
     //HIMPUN DATA ANGKOT YANG DEKAT DENGAN POSISI AWAL
@@ -43,7 +43,7 @@
 
 
     //TUJUAN
-    $querysearch="SELECT id, geom, st_distance_sphere(ST_GeomFromText('POINT(".$lng2." ".$lat2.")',-1), geom) as jarak FROM angkot where st_distance_sphere(ST_GeomFromText('POINT(".$lng2." ".$lat2.")',-1), geom) <= ".$rad.""; 
+    $querysearch="SELECT id, geom, ST_DistanceSphere(ST_GeomFromText('POINT(".$lng2." ".$lat2.")',-1), geom) as jarak FROM angkot where ST_DistanceSphere(ST_GeomFromText('POINT(".$lng2." ".$lat2.")',-1), geom) <= ".$rad.""; 
     $hasil=pg_query($querysearch);
 
     $geom_tujuan=array();
@@ -119,7 +119,7 @@
         for ($i=0; $i < count($angkot_awal); $i++) { 
 
             $geom = $geom_awal[$i];
-            $querysearch="SELECT id, geom, st_distance_sphere('".$geom."', geom) as jarak FROM angkot where st_distance_sphere('".$geom."', geom) <= ".$rad.""; 
+            $querysearch="SELECT id, geom, ST_DistanceSphere('".$geom."', geom) as jarak FROM angkot where ST_DistanceSphere('".$geom."', geom) <= ".$rad.""; 
 
             $hasil=pg_query($querysearch);
             
@@ -227,7 +227,7 @@
             //HIMPUN ANGKOT TENGAH BERPOTONGAN DENGAN AWAL
             $geom = $geom_awal[$i];
 //            $querysearch="SELECT id FROM angkot where ST_Crosses ('".$geom."' , geom)"; 
-            $querysearch="SELECT id, geom, st_distance_sphere('".$geom."', geom) as jarak FROM angkot where st_distance_sphere('".$geom."', geom) <= ".$rad.""; 
+            $querysearch="SELECT id, geom, ST_DistanceSphere('".$geom."', geom) as jarak FROM angkot where ST_DistanceSphere('".$geom."', geom) <= ".$rad.""; 
             $hasil=pg_query($querysearch);
             $a=0;            
             while($baris = pg_fetch_array($hasil)){
@@ -314,7 +314,7 @@
                 //HIMPUN ANGKOT TENGAH BERPOTONGAN DENGAN TUJUAN
                 $geom2 = $geom_tujuan[$q];
                 //$querysearch2="SELECT id FROM angkot where ST_Crosses ('".$geom2."' , geom)"; 
-                $querysearch2="SELECT id, geom, st_distance_sphere('".$geom2."', geom) as jarak FROM angkot where st_distance_sphere('".$geom2."', geom) <= ".$rad."";
+                $querysearch2="SELECT id, geom, ST_DistanceSphere('".$geom2."', geom) as jarak FROM angkot where ST_DistanceSphere('".$geom2."', geom) <= ".$rad."";
                 $hasil2=pg_query($querysearch2);
                 $w=0;            
                 while($baris2 = pg_fetch_array($hasil2)){
@@ -365,7 +365,7 @@
             //HIMPUN ANGKOT TENGAH BERPOTONGAN DENGAN AWAL
             $geom = $geom_awal[$i];
             //$querysearch="SELECT id FROM angkot where ST_Crosses ('".$geom."' , geom)"; 
-            $querysearch="SELECT id, geom, st_distance_sphere('".$geom."', geom) as jarak FROM angkot where st_distance_sphere('".$geom."', geom) <= ".$rad."";
+            $querysearch="SELECT id, geom, ST_DistanceSphere('".$geom."', geom) as jarak FROM angkot where ST_DistanceSphere('".$geom."', geom) <= ".$rad."";
             $hasil=pg_query($querysearch);
             $a=0;            
             while($baris = pg_fetch_array($hasil)){
@@ -384,7 +384,7 @@
 
                 //HIMPUN ANGKOT TENGAH BERPOTONGAN DENGAN TUJUAN
                 $geom2 = $geom_tujuan[$q];
-                $querysearch2="SELECT id, geom, st_distance_sphere('".$geom2."', geom) as jarak FROM angkot where st_distance_sphere('".$geom2."', geom) <= ".$rad."";
+                $querysearch2="SELECT id, geom, ST_DistanceSphere('".$geom2."', geom) as jarak FROM angkot where ST_DistanceSphere('".$geom2."', geom) <= ".$rad."";
                 $hasil2=pg_query($querysearch2);
                 $w=0;            
                 while($baris2 = pg_fetch_array($hasil2)){

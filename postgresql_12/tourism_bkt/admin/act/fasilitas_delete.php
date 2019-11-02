@@ -1,6 +1,6 @@
 <?php
 include ('../../../connect.php');
-$id_fasilitas = @$_GET['id_fasilitas'];
+$id_fasilitas = $_GET['id_fasilitas'];
 
 	
 	$sql   = "DELETE from facility_tourism where id='$id_fasilitas'";	

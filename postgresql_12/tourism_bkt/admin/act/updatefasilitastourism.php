@@ -1,8 +1,8 @@
 <?php
 session_start();
 include ('../../../connect.php');
-$id = @$_POST['id_tourism'];
-$facility = @$_POST['facility_tourism'];
+$id = $_POST['id_tourism'];
+$facility = $_POST['facility_tourism'];
 
 $sqldel = "delete from detail_facility_tourism where id_tourism='$id'";
 
@@ -20,7 +20,7 @@ if($countl > 0){
 }
 if (($insert||$countl==0) && $delete){
 	//echo 'ok';
-	if(@$_SESSION['A']===true){
+	if($_SESSION['A']===true){
 	header("location:../?page=tourism_detail&id=$id");
 	}
 	else{

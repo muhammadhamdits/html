@@ -1,7 +1,7 @@
 
 <ul class="sidebar-menu" id="nav-accordion">              
   <p class="centered"><a href="profile.html"><img src="../icon/home.png" class="img-circle" width="60"></a></p>
-  <h5 class="centered"><p><?php echo @$_SESSION['username']; ?></p></h5>
+  <h5 class="centered"><p><?php echo $_SESSION['username']; ?></p></h5>
                   
   <li class="mt">
       <a href="../">

@@ -4,8 +4,8 @@
 
                        <h2 style="text-transform:capitalize;">Update Room <?php echo $data1['name'] ?></h2>
 
-        <?php  if (isset(@$_GET['id'])){
-					$id=@$_GET['id'];
+        <?php  if (isset($_GET['id'])){
+					$id=$_GET['id'];
 					$sql = pg_query("SELECT * FROM room where id=$id");
 					$data = pg_fetch_array($sql)
 				?> 

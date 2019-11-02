@@ -1,9 +1,9 @@
 <?php 
 include ('../../connect.php');
 //session_start();
-$id = @$_GET["id"];
-$id_hotel = @$_SESSION['id'];
-$username = @$_SESSION['username'];
+$id = $_GET["id"];
+$id_hotel = $_SESSION['id'];
+$username = $_SESSION['username'];
 
 ?>
 <div class="col-lg-12 main-chart" > 

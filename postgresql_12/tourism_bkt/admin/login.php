@@ -1,6 +1,6 @@
 <?php 
 session_start();
-if(isset(@$_SESSION['A'])){
+if(isset($_SESSION['A'])){
 	echo"<script language='JavaScript'>document.location='index.php'</script>";
     exit();
 }

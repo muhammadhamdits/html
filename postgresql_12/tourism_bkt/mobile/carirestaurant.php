@@ -5,7 +5,7 @@
     $longi = @$_GET['longitude'];
 	$rad=@$_GET['rad'];
 
-	$querysearch="SELECT id, name, address, cp, open, close, capacity, employee, mushalla, park_area, bathroom, id_category, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, st_distance_sphere(ST_GeomFromText('POINT(".$longi." ".$latit.")',-1), geom) as jarak FROM restaurant where st_distance_sphere(ST_GeomFromText('POINT(".$longi." ".$latit.")',-1), geom) <= ".$rad.""; 
+	$querysearch="SELECT id, name, address, cp, open, close, capacity, employee, mushalla, park_area, bathroom, id_category, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, ST_DistanceSphere(ST_GeomFromText('POINT(".$longi." ".$latit.")',-1), geom) as jarak FROM restaurant where ST_DistanceSphere(ST_GeomFromText('POINT(".$longi." ".$latit.")',-1), geom) <= ".$rad.""; 
 
 	$hasil=pg_query($querysearch);
 

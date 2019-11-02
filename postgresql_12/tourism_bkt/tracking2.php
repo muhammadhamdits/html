@@ -21,7 +21,7 @@
     */
 
     //AWAL
-    $querysearch="SELECT id_angkot, geom, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, st_distance_sphere(ST_GeomFromText('POINT(".$lng1." ".$lat1.")',-1), geom) as jarak FROM _angkot where st_distance_sphere(ST_GeomFromText('POINT(".$lng1." ".$lat1.")',-1), geom) <= ".$rad.""; 
+    $querysearch="SELECT id_angkot, geom, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, ST_DistanceSphere(ST_GeomFromText('POINT(".$lng1." ".$lat1.")',-1), geom) as jarak FROM _angkot where ST_DistanceSphere(ST_GeomFromText('POINT(".$lng1." ".$lat1.")',-1), geom) <= ".$rad.""; 
     $hasil=pg_query($querysearch);
 
     //HIMPUN DATA ANGKOT YANG DEKAT DENGAN POSISI AWAL
@@ -47,7 +47,7 @@
 
 
     //TUJUAN
-    $querysearch="SELECT id_angkot, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, st_distance_sphere(ST_GeomFromText('POINT(".$lng2." ".$lat2.")',-1), geom) as jarak FROM _angkot where st_distance_sphere(ST_GeomFromText('POINT(".$lng2." ".$lat2.")',-1), geom) <= ".$rad.""; 
+    $querysearch="SELECT id_angkot, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, ST_DistanceSphere(ST_GeomFromText('POINT(".$lng2." ".$lat2.")',-1), geom) as jarak FROM _angkot where ST_DistanceSphere(ST_GeomFromText('POINT(".$lng2." ".$lat2.")',-1), geom) <= ".$rad.""; 
     $hasil=pg_query($querysearch);
 
     $geom_tujuan=array();
@@ -97,7 +97,7 @@
                     $angkot_awal[$x]; 
                     // Dibandingkan Satu" dengan angkot tujuan, cari yang paling dekat
 
-                $querysearch="SELECT id_angkot, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, st_distance_sphere('".$geom_awal[$x]."', geom) as jarak FROM _angkot where ".$or."order by jarak LIMIT 1"; 
+                $querysearch="SELECT id_angkot, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, ST_DistanceSphere('".$geom_awal[$x]."', geom) as jarak FROM _angkot where ".$or."order by jarak LIMIT 1"; 
                 $hasil=pg_query($querysearch);
                 
                 $output[$x][0]=$angkot_awal[$x];

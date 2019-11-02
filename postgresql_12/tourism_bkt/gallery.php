@@ -62,7 +62,7 @@ session_start();
   
   </head>
 
-  <body onload="init();data_tourism_1_info('<?php echo @$_GET["idgallery"] ?>');">
+  <body onload="init();data_tourism_1_info('<?php echo $_GET["idgallery"] ?>');">
 
    <section id="container" >
       <header class="header black-bg">
@@ -123,32 +123,32 @@ session_start();
                     </header>
                     <?php 
                      require '../connect.php';
-                      @$id = @$_GET["idgallery"];
-                     // echo "ini @$id";
+                      $id = $_GET["idgallery"];
+                     // echo "ini $id";
 
-                      if(strpos(@$id,"H") !== false){
-                        @$sqlreview = "SELECT * from information_admin where id_hotel = '@$id'";
-                      }elseif (strpos(@$id,"RM") !== false) {
-                        @$sqlreview = "SELECT * from information_admin where id_kuliner = '@$id'";
-                      }elseif (strpos(@$id, "SO") !== false) {
-                        @$sqlreview = "SELECT * from information_admin where id_souvenir = '@$id'";
-                      }elseif (strpos(@$id,"IK") !== false) {
-                         @$sqlreview = "SELECT * from information_admin where id_ik = '@$id'";
-                      }elseif (strpos(@$id,"tw")!== false) {
-                         @$sqlreview = "SELECT * from information_admin where id_ow = '@$id'";
+                      if(strpos($id,"H") !== false){
+                        $sqlreview = "SELECT * from information_admin where id_hotel = '$id'";
+                      }elseif (strpos($id,"RM") !== false) {
+                        $sqlreview = "SELECT * from information_admin where id_kuliner = '$id'";
+                      }elseif (strpos($id, "SO") !== false) {
+                        $sqlreview = "SELECT * from information_admin where id_souvenir = '$id'";
+                      }elseif (strpos($id,"IK") !== false) {
+                         $sqlreview = "SELECT * from information_admin where id_ik = '$id'";
+                      }elseif (strpos($id,"tw")!== false) {
+                         $sqlreview = "SELECT * from information_admin where id_ow = '$id'";
                       }
                         
-                      @$result = pg_query(@$sqlreview);
+                      $result = pg_query($sqlreview);
                     ?>
                     <table class="table">
                       <thead><th>Tanggal</th><th class="centered">Info</th></thead>
                     <?php  
-                      while (@$rows = pg_fetch_array(@$result)) 
+                      while ($rows = pg_fetch_array($result)) 
                         {
-                          @$tgl = @$rows['tanggal'];
-                          @$info = @$rows['informasi'];
-                          @$id_info =@$rows['id_informasi'];
-                          echo "<tr><td>@$tgl</td><td>@$info</td></tr>";
+                          $tgl = $rows['tanggal'];
+                          $info = $rows['informasi'];
+                          $id_info =$rows['id_informasi'];
+                          echo "<tr><td>$tgl</td><td>$info</td></tr>";
                         }
                     
 
@@ -168,22 +168,55 @@ session_start();
                     <header class="panel-heading">
                       <h4 class="box-title" style="text-transform:capitalize;"><b> Visitor's Reviews</b></h4>
                     </header>
-
+                    
                     <div class="panel-body">
+                      <table class="table">             
+                      <?php
+                      $id = $_GET["idgallery"];
+                      if(strpos($id,"H") !== false){
+                        $sqlreview = "SELECT * from review where id_hotel = '$id'";
+                      }elseif (strpos($id,"RM") !== false) {
+                        $sqlreview = "SELECT * from review where id_kuliner = '$id'";
+                      }elseif (strpos($id, "SO") !== false) {
+                        $sqlreview = "SELECT * from review where id_souvenir = '$id'";
+                      }elseif (strpos($id,"IK") !== false) {
+                         $sqlreview = "SELECT * from review where id_ik = '$id'";
+                      }elseif (strpos($id,"tw")!== false) {
+                         $sqlreview = "SELECT * from review where id_ow = '$id'";
+                      } 
+                      $result = pg_query($sqlreview);
+                      $bisa = true;
+                      while ($rows = pg_fetch_array($result)) 
+                      {
+                        $nama = $rows['name'];
+                        if($_SESSION['username']==$nama){
+                          $bisa = false;
+                        }
+                        $komen = $rows['comment'];
+                        echo "<tr><td>Nama</td><td>:</td><td>$nama</td></tr><tr><td>Comment</td><td>:</td><td>$komen</td></tr>";
+                      }
+                      ?>
+                    </table>
                     <form method="POST" action="_add_comment.php">
-                      <input type="hidden" name="id" value="<?php echo @$_GET['idgallery']?>" >
+                    
+                    <input type="hidden" name="id" value="<?php echo $_GET['idgallery']?>" >
                       <table id="" class="table">
                         <tbody  style='vertical-align:top;'>
                           <?php 
-                    
-                    //@$u = @$_SESSION['username'];
-                    //echo "username @$u";
-                    if(@$_SESSION['C'] == true)
+                
+                    if($_SESSION['C'] == true && $bisa == true)
                       {
+                        echo($_SESSION['username']);
                           echo "<tr>
                               <td>Name</td>
                               <td>:</td>
-                              <td><textarea cols='30' rows='1' name='nama'></textarea></td>
+                              <td><select name='review'>
+                              <option value='1'>1</option>
+                              <option value='2'>2</option>
+                              <option value='3'>3</option>
+                              <option value='4'>4</option>
+                              <option value='5'>5</option>
+                            </select>  </td>
                             </tr>
                             <tr>
                               <td>Comment</td>
@@ -195,42 +228,12 @@ session_start();
                             </tr>";
                       }
                      ?>     
+                     
                           
                         </tbody>          
                       </table>
                       </form>
 
-                      <?php 
-                      
-                      @$id = @$_GET["idgallery"];
-
-                      if(strpos(@$id,"H") !== false){
-                        @$sqlreview = "SELECT * from review where id_hotel = '@$id'";
-                      }elseif (strpos(@$id,"RM") !== false) {
-                        @$sqlreview = "SELECT * from review where id_kuliner = '@$id'";
-                      }elseif (strpos(@$id, "SO") !== false) {
-                        @$sqlreview = "SELECT * from review where id_souvenir = '@$id'";
-                      }elseif (strpos(@$id,"IK") !== false) {
-                         @$sqlreview = "SELECT * from review where id_ik = '@$id'";
-                      }elseif (strpos(@$id,"tw")!== false) {
-                         @$sqlreview = "SELECT * from review where id_ow = '@$id'";
-                      }
-                        
-                      @$result = pg_query(@$sqlreview);
-                    ?>
-                    <table class="table">
-                    <?php  
-                      while (@$rows = pg_fetch_array(@$result)) 
-                        {
-                          @$nama = @$rows['name'];
-                          @$komen = @$rows['comment'];
-                          echo "<tr><td>Nama</td><td>:</td><td>@$nama</td></tr><tr><td>Comment</td><td>:</td><td>@$komen</td></tr>";
-                        }
-                    
-
-                       ?>               
-                    
-                  </table>
                   <tr colspan></tr>
 
                   </section>
@@ -247,109 +250,109 @@ session_start();
                             <div class="html5gallery" style="max-height:700px; overflow:auto;" data-skin="horizontal" data-width="350" data-height="200" data-resizemode="fit">  
                               <?php
                             
-                            if (strpos(@$id,"H") !== false) {  //Hotel
+                            if (strpos($id,"H") !== false) {  //Hotel
 
-                              @$querysearch  ="SELECT a.id, b.gallery_tourism FROM tourism as a left join tourism_gallery as b on a.id=b.id where a.id='@$id' ";       
-                              @$hasil=pg_query(@$querysearch);
-                              while(@$baris = pg_fetch_assoc(@$hasil)){
-                                if((@$baris['gallery_tourism']=='-')||(@$baris['gallery_tourism']=='')){
+                              $querysearch  ="SELECT a.id, b.gallery_tourism FROM tourism as a left join tourism_gallery as b on a.id=b.id where a.id='$id' ";       
+                              $hasil=pg_query($querysearch);
+                              while($baris = pg_fetch_assoc($hasil)){
+                                if(($baris['gallery_tourism']=='-')||($baris['gallery_tourism']=='')){
                                   echo "<a href='../_foto/foto.jpg'><img src='../_foto/foto.jpg' ></a>";
                                 }
                                 else{
-                                  echo "<a href='../_foto/".@$baris['gallery_tourism']."'><img src='../_foto/".@$baris['gallery_tourism']."'></a>";
+                                  echo "<a href='../_foto/".$baris['gallery_tourism']."'><img src='../_foto/".$baris['gallery_tourism']."'></a>";
                                 }
                               }
                     
-                            } elseif (strpos(@$id,"tw") !== false) {  //Tourism
+                            } elseif (strpos($id,"tw") !== false) {  //Tourism
 
-                              @$querysearch  ="SELECT a.id, b.gallery_tourism FROM tourism as a left join tourism_gallery as b on a.id=b.id where a.id='@$id' ";       
-                              @$hasil=pg_query(@$querysearch);
-                              while(@$baris = pg_fetch_assoc(@$hasil)){
-                                if((@$baris['gallery_tourism']=='-')||(@$baris['gallery_tourism']=='')){
+                              $querysearch  ="SELECT a.id, b.gallery_tourism FROM tourism as a left join tourism_gallery as b on a.id=b.id where a.id='$id' ";       
+                              $hasil=pg_query($querysearch);
+                              while($baris = pg_fetch_assoc($hasil)){
+                                if(($baris['gallery_tourism']=='-')||($baris['gallery_tourism']=='')){
                                   echo "<a href='../_foto/foto.jpg'><img src='../_foto/foto.jpg' ></a>";
                                 }
                                 else{
-                                  echo "<a href='../_foto/".@$baris['gallery_tourism']."'><img src='../_foto/".@$baris['gallery_tourism']."'></a>";
+                                  echo "<a href='../_foto/".$baris['gallery_tourism']."'><img src='../_foto/".$baris['gallery_tourism']."'></a>";
                                 }
                               }
 
-                            } elseif (strpos(@$id,"SO") !== false) {  //Souvenir
+                            } elseif (strpos($id,"SO") !== false) {  //Souvenir
 
-                              @$querysearch  ="SELECT a.id, b.gallery_souvenir FROM souvenir as a left join souvenir_gallery as b on a.id=b.id where a.id='@$id' ";       
-                              @$hasil=pg_query(@$querysearch);
-                              while(@$baris = pg_fetch_assoc(@$hasil)){
-                                if((@$baris['gallery_souvenir']=='-')||(@$baris['gallery_souvenir']=='')){
+                              $querysearch  ="SELECT a.id, b.gallery_souvenir FROM souvenir as a left join souvenir_gallery as b on a.id=b.id where a.id='$id' ";       
+                              $hasil=pg_query($querysearch);
+                              while($baris = pg_fetch_assoc($hasil)){
+                                if(($baris['gallery_souvenir']=='-')||($baris['gallery_souvenir']=='')){
                                   echo "<a href='../_foto/foto.jpg'><img src='../_foto/foto.jpg' ></a>";
                                 }
                                 else{
-                                  echo "<a href='../_foto/".@$baris['gallery_souvenir']."'><img src='../_foto/".@$baris['gallery_souvenir']."'></a>";
+                                  echo "<a href='../_foto/".$baris['gallery_souvenir']."'><img src='../_foto/".$baris['gallery_souvenir']."'></a>";
                                 }
                               }
 
-                            } elseif (strpos(@$id,"RM") !== false) {  //Kuliner
+                            } elseif (strpos($id,"RM") !== false) {  //Kuliner
 
-                              @$querysearch  ="SELECT a.id, b.gallery_culinary FROM culinary_place as a left join culinary_gallery as b on a.id=b.id where a.id='@$id' ";       
-                              @$hasil=pg_query(@$querysearch);
-                              while(@$baris = pg_fetch_assoc(@$hasil)){
-                                if((@$baris['gallery_culinary']=='-')||(@$baris['gallery_culinary']=='')){
+                              $querysearch  ="SELECT a.id, b.gallery_culinary FROM culinary_place as a left join culinary_gallery as b on a.id=b.id where a.id='$id' ";       
+                              $hasil=pg_query($querysearch);
+                              while($baris = pg_fetch_assoc($hasil)){
+                                if(($baris['gallery_culinary']=='-')||($baris['gallery_culinary']=='')){
                                   echo "<a href='../_foto/foto.jpg'><img src='../_foto/foto.jpg' ></a>";
                                 }
                                 else{
-                                  echo "<a href='../_foto/".@$baris['gallery_culinary']."'><img src='../_foto/".@$baris['gallery_culinary']."'></a>";
+                                  echo "<a href='../_foto/".$baris['gallery_culinary']."'><img src='../_foto/".$baris['gallery_culinary']."'></a>";
                                 }
                               }
 
-                            } elseif (strpos(@$id,"M") !== false) {  //Worship
+                            } elseif (strpos($id,"M") !== false) {  //Worship
 
-                              @$querysearch  ="SELECT a.id, b.gallery_worship_place FROM worship_place as a left join worship_place_gallery as b on a.id=b.id where a.id='@$id' ";       
-                              @$hasil=pg_query(@$querysearch);
-                              while(@$baris = pg_fetch_assoc(@$hasil)){
-                                if((@$baris['gallery_worship_place']=='-')||(@$baris['gallery_worship_place']=='')){
+                              $querysearch  ="SELECT a.id, b.gallery_worship_place FROM worship_place as a left join worship_place_gallery as b on a.id=b.id where a.id='$id' ";       
+                              $hasil=pg_query($querysearch);
+                              while($baris = pg_fetch_assoc($hasil)){
+                                if(($baris['gallery_worship_place']=='-')||($baris['gallery_worship_place']=='')){
                                   echo "<a href='../_foto/foto.jpg'><img src='../_foto/foto.jpg' ></a>";
                                 }
                                 else{
-                                  echo "<a href='../_foto/".@$baris['gallery_worship_place']."'><img src='../_foto/".@$baris['gallery_worship_place']."'></a>";
+                                  echo "<a href='../_foto/".$baris['gallery_worship_place']."'><img src='../_foto/".$baris['gallery_worship_place']."'></a>";
                                 }
                               }
 
-                            } elseif (strpos(@$id,"IK") !== false) {  //Industry
+                            } elseif (strpos($id,"IK") !== false) {  //Industry
 
-                              @$querysearch  ="SELECT a.id, b.gallery_industry FROM small_industry as a left join industry_gallery as b on a.id=b.id where a.id='@$id' ";       
-                              @$hasil=pg_query(@$querysearch);
-                              while(@$baris = pg_fetch_assoc(@$hasil)){
-                                if((@$baris['gallery_industry']=='-')||(@$baris['gallery_industry']=='')){
+                              $querysearch  ="SELECT a.id, b.gallery_industry FROM small_industry as a left join industry_gallery as b on a.id=b.id where a.id='$id' ";       
+                              $hasil=pg_query($querysearch);
+                              while($baris = pg_fetch_assoc($hasil)){
+                                if(($baris['gallery_industry']=='-')||($baris['gallery_industry']=='')){
                                   echo "<a href='../_foto/foto.jpg'><img src='../_foto/foto.jpg' ></a>";
                                 }
                                 else{
-                                  echo "<a href='../_foto/".@$baris['gallery_industry']."'><img src='../_foto/".@$baris['gallery_industry']."'></a>";
+                                  echo "<a href='../_foto/".$baris['gallery_industry']."'><img src='../_foto/".$baris['gallery_industry']."'></a>";
                                 }
                               }
 
-                            } elseif (strpos(@$id,"R") !== false) {  //Restoran
+                            } elseif (strpos($id,"R") !== false) {  //Restoran
 
-                              @$querysearch  ="SELECT a.id, b.gallery_restaurant FROM restaurant as a left join restaurant_gallery as b on a.id=b.id where a.id='@$id' ";       
-                              @$hasil=pg_query(@$querysearch);
-                              while(@$baris = pg_fetch_assoc(@$hasil)){
-                                if((@$baris['gallery_restaurant']=='-')||(@$baris['gallery_restaurant']=='')){
+                              $querysearch  ="SELECT a.id, b.gallery_restaurant FROM restaurant as a left join restaurant_gallery as b on a.id=b.id where a.id='$id' ";       
+                              $hasil=pg_query($querysearch);
+                              while($baris = pg_fetch_assoc($hasil)){
+                                if(($baris['gallery_restaurant']=='-')||($baris['gallery_restaurant']=='')){
                                   echo "<a href='../_foto/foto.jpg'><img src='../_foto/foto.jpg' ></a>";
                                 }
                                 else{
-                                  echo "<a href='../_foto/".@$baris['gallery_restaurant']."'><img src='../_foto/".@$baris['gallery_restaurant']."'></a>";
+                                  echo "<a href='../_foto/".$baris['gallery_restaurant']."'><img src='../_foto/".$baris['gallery_restaurant']."'></a>";
                                 }
                               }
 
                             } else {  //Angkot
 
-                              @$querysearch  ="SELECT a.id, b.gallery_angkot FROM angkot as a left join angkot_gallery as b on a.id=b.id where a.id='@$id' ";  
-                              //echo "@$querysearch";     
-                              echo "<script language='javascript'>alert('@$querysearch');</script>";   
-                              @$hasil=pg_query(@$querysearch);
-                              while(@$baris = pg_fetch_assoc(@$hasil)){
-                                if((@$baris['gallery_angkot']=='-')||(@$baris['gallery_angkot']=='')){
+                              $querysearch  ="SELECT a.id, b.gallery_angkot FROM angkot as a left join angkot_gallery as b on a.id=b.id where a.id='$id' ";  
+                              //echo "$querysearch";     
+                              echo "<script language='javascript'>alert('$querysearch');</script>";   
+                              $hasil=pg_query($querysearch);
+                              while($baris = pg_fetch_assoc($hasil)){
+                                if(($baris['gallery_angkot']=='-')||($baris['gallery_angkot']=='')){
                                   echo "<a href='../_foto/foto.jpg'><img src='../_foto/foto.jpg' ></a>";
                                 }
                                 else{
-                                  echo "<a href='../_foto/".@$baris['gallery_angkot']."'><img src='../_foto/".@$baris['gallery_angkot']."'></a>";
+                                  echo "<a href='../_foto/".$baris['gallery_angkot']."'><img src='../_foto/".$baris['gallery_angkot']."'></a>";
                                 }
                               }
 
@@ -422,110 +425,110 @@ session_start();
                           <?php
                         require '../connect.php';
 
-                        @$id = @$_GET["idgallery"];
-                        if (strpos(@$id,"H") !== false) {  //Hotel
+                        $id = $_GET["idgallery"];
+                        if (strpos($id,"H") !== false) {  //Hotel
 
-                          @$querysearch  ="SELECT a.id, b.gallery_tourism FROM hotel as a left join tourism_gallery as b on a.id=b.id where a.id='@$id' ";       
-                          @$hasil=pg_query(@$querysearch);
-                          while(@$baris = pg_fetch_assoc(@$hasil)){
-                            if((@$baris['gallery_tourism']=='-')||(@$baris['gallery_tourism']=='')){
+                          $querysearch  ="SELECT a.id, b.gallery_tourism FROM hotel as a left join tourism_gallery as b on a.id=b.id where a.id='$id' ";       
+                          $hasil=pg_query($querysearch);
+                          while($baris = pg_fetch_assoc($hasil)){
+                            if(($baris['gallery_tourism']=='-')||($baris['gallery_tourism']=='')){
                               echo "<a href='../_foto/foto.jpg'><img src='../_foto/foto.jpg' ></a>";
                             }
                             else{
-                              echo "<a href='../_foto/".@$baris['gallery_tourism']."'><img src='../_foto/".@$baris['gallery_tourism']."'></a>";
+                              echo "<a href='../_foto/".$baris['gallery_tourism']."'><img src='../_foto/".$baris['gallery_tourism']."'></a>";
                             }
                           }
                 
-                        } elseif (strpos(@$id,"tw") !== false) {  //Tourism
+                        } elseif (strpos($id,"tw") !== false) {  //Tourism
 
-                          @$querysearch  ="SELECT a.id, b.gallery_tourism FROM tourism as a left join tourism_gallery as b on a.id=b.id where a.id='@$id' ";       
-                          @$hasil=pg_query(@$querysearch);
-                          while(@$baris = pg_fetch_assoc(@$hasil)){
-                            if((@$baris['gallery_tourism']=='-')||(@$baris['gallery_tourism']=='')){
+                          $querysearch  ="SELECT a.id, b.gallery_tourism FROM tourism as a left join tourism_gallery as b on a.id=b.id where a.id='$id' ";       
+                          $hasil=pg_query($querysearch);
+                          while($baris = pg_fetch_assoc($hasil)){
+                            if(($baris['gallery_tourism']=='-')||($baris['gallery_tourism']=='')){
                               echo "<a href='../_foto/foto.jpg'><img src='../_foto/foto.jpg' ></a>";
                             }
                             else{
-                              echo "<a href='../_foto/".@$baris['gallery_tourism']."'><img src='../_foto/".@$baris['gallery_tourism']."'></a>";
+                              echo "<a href='../_foto/".$baris['gallery_tourism']."'><img src='../_foto/".$baris['gallery_tourism']."'></a>";
                             }
                           }
 
-                        } elseif (strpos(@$id,"SO") !== false) {  //Souvenir
+                        } elseif (strpos($id,"SO") !== false) {  //Souvenir
 
-                          @$querysearch  ="SELECT a.id, b.gallery_souvenir FROM souvenir as a left join souvenir_gallery as b on a.id=b.id where a.id='@$id' ";       
-                          @$hasil=pg_query(@$querysearch);
-                          while(@$baris = pg_fetch_assoc(@$hasil)){
-                            if((@$baris['gallery_souvenir']=='-')||(@$baris['gallery_souvenir']=='')){
+                          $querysearch  ="SELECT a.id, b.gallery_souvenir FROM souvenir as a left join souvenir_gallery as b on a.id=b.id where a.id='$id' ";       
+                          $hasil=pg_query($querysearch);
+                          while($baris = pg_fetch_assoc($hasil)){
+                            if(($baris['gallery_souvenir']=='-')||($baris['gallery_souvenir']=='')){
                               echo "<a href='../_foto/foto.jpg'><img src='../_foto/foto.jpg' ></a>";
                             }
                             else{
-                              echo "<a href='../_foto/".@$baris['gallery_souvenir']."'><img src='../_foto/".@$baris['gallery_souvenir']."'></a>";
+                              echo "<a href='../_foto/".$baris['gallery_souvenir']."'><img src='../_foto/".$baris['gallery_souvenir']."'></a>";
                             }
                           }
 
-                        } elseif (strpos(@$id,"RM") !== false) {  //Kuliner
+                        } elseif (strpos($id,"RM") !== false) {  //Kuliner
 
-                          @$querysearch  ="SELECT a.id, b.gallery_culinary FROM culinary_place as a left join culinary_gallery as b on a.id=b.id where a.id='@$id' ";       
-                          @$hasil=pg_query(@$querysearch);
-                          while(@$baris = pg_fetch_assoc(@$hasil)){
-                            if((@$baris['gallery_culinary']=='-')||(@$baris['gallery_culinary']=='')){
+                          $querysearch  ="SELECT a.id, b.gallery_culinary FROM culinary_place as a left join culinary_gallery as b on a.id=b.id where a.id='$id' ";       
+                          $hasil=pg_query($querysearch);
+                          while($baris = pg_fetch_assoc($hasil)){
+                            if(($baris['gallery_culinary']=='-')||($baris['gallery_culinary']=='')){
                               echo "<a href='../_foto/foto.jpg'><img src='../_foto/foto.jpg' ></a>";
                             }
                             else{
-                              echo "<a href='../_foto/".@$baris['gallery_culinary']."'><img src='../_foto/".@$baris['gallery_culinary']."'></a>";
+                              echo "<a href='../_foto/".$baris['gallery_culinary']."'><img src='../_foto/".$baris['gallery_culinary']."'></a>";
                             }
                           }
 
-                        } elseif (strpos(@$id,"M") !== false) {  //Worship
+                        } elseif (strpos($id,"M") !== false) {  //Worship
 
-                          @$querysearch  ="SELECT a.id, b.gallery_worship_place FROM worship_place as a left join worship_place_gallery as b on a.id=b.id where a.id='@$id' ";       
-                          @$hasil=pg_query(@$querysearch);
-                          while(@$baris = pg_fetch_assoc(@$hasil)){
-                            if((@$baris['gallery_worship_place']=='-')||(@$baris['gallery_worship_place']=='')){
+                          $querysearch  ="SELECT a.id, b.gallery_worship_place FROM worship_place as a left join worship_place_gallery as b on a.id=b.id where a.id='$id' ";       
+                          $hasil=pg_query($querysearch);
+                          while($baris = pg_fetch_assoc($hasil)){
+                            if(($baris['gallery_worship_place']=='-')||($baris['gallery_worship_place']=='')){
                               echo "<a href='../_foto/foto.jpg'><img src='../_foto/foto.jpg' ></a>";
                             }
                             else{
-                              echo "<a href='../_foto/".@$baris['gallery_worship_place']."'><img src='../_foto/".@$baris['gallery_worship_place']."'></a>";
+                              echo "<a href='../_foto/".$baris['gallery_worship_place']."'><img src='../_foto/".$baris['gallery_worship_place']."'></a>";
                             }
                           }
 
-                        } elseif (strpos(@$id,"IK") !== false) {  //Industry
+                        } elseif (strpos($id,"IK") !== false) {  //Industry
 
-                          @$querysearch  ="SELECT a.id, b.gallery_industry FROM small_industry as a left join industry_gallery as b on a.id=b.id where a.id='@$id' ";       
-                          @$hasil=pg_query(@$querysearch);
-                          while(@$baris = pg_fetch_assoc(@$hasil)){
-                            if((@$baris['gallery_industry']=='-')||(@$baris['gallery_industry']=='')){
+                          $querysearch  ="SELECT a.id, b.gallery_industry FROM small_industry as a left join industry_gallery as b on a.id=b.id where a.id='$id' ";       
+                          $hasil=pg_query($querysearch);
+                          while($baris = pg_fetch_assoc($hasil)){
+                            if(($baris['gallery_industry']=='-')||($baris['gallery_industry']=='')){
                               echo "<a href='../_foto/foto.jpg'><img src='../_foto/foto.jpg' ></a>";
                             }
                             else{
-                              echo "<a href='../_foto/".@$baris['gallery_industry']."'><img src='../_foto/".@$baris['gallery_industry']."'></a>";
+                              echo "<a href='../_foto/".$baris['gallery_industry']."'><img src='../_foto/".$baris['gallery_industry']."'></a>";
                             }
                           }
 
-                        } elseif (strpos(@$id,"R") !== false) {  //Restoran
+                        } elseif (strpos($id,"R") !== false) {  //Restoran
 
-                          @$querysearch  ="SELECT a.id, b.gallery_restaurant FROM restaurant as a left join restaurant_gallery as b on a.id=b.id where a.id='@$id' ";       
-                          @$hasil=pg_query(@$querysearch);
-                          while(@$baris = pg_fetch_assoc(@$hasil)){
-                            if((@$baris['gallery_restaurant']=='-')||(@$baris['gallery_restaurant']=='')){
+                          $querysearch  ="SELECT a.id, b.gallery_restaurant FROM restaurant as a left join restaurant_gallery as b on a.id=b.id where a.id='$id' ";       
+                          $hasil=pg_query($querysearch);
+                          while($baris = pg_fetch_assoc($hasil)){
+                            if(($baris['gallery_restaurant']=='-')||($baris['gallery_restaurant']=='')){
                               echo "<a href='../_foto/foto.jpg'><img src='../_foto/foto.jpg' ></a>";
                             }
                             else{
-                              echo "<a href='../_foto/".@$baris['gallery_restaurant']."'><img src='../_foto/".@$baris['gallery_restaurant']."'></a>";
+                              echo "<a href='../_foto/".$baris['gallery_restaurant']."'><img src='../_foto/".$baris['gallery_restaurant']."'></a>";
                             }
                           }
 
                         } else {  //Angkot
 
-                          @$querysearch  ="SELECT a.id, b.gallery_angkot FROM angkot as a left join angkot_gallery as b on a.id=b.id where a.id='@$id' ";  
-                          //echo "@$querysearch";     
-                          echo "<script language='javascript'>alert('@$querysearch');</script>";   
-                          @$hasil=pg_query(@$querysearch);
-                          while(@$baris = pg_fetch_assoc(@$hasil)){
-                            if((@$baris['gallery_angkot']=='-')||(@$baris['gallery_angkot']=='')){
+                          $querysearch  ="SELECT a.id, b.gallery_angkot FROM angkot as a left join angkot_gallery as b on a.id=b.id where a.id='$id' ";  
+                          //echo "$querysearch";     
+                          echo "<script language='javascript'>alert('$querysearch');</script>";   
+                          $hasil=pg_query($querysearch);
+                          while($baris = pg_fetch_assoc($hasil)){
+                            if(($baris['gallery_angkot']=='-')||($baris['gallery_angkot']=='')){
                               echo "<a href='../_foto/foto.jpg'><img src='../_foto/foto.jpg' ></a>";
                             }
                             else{
-                              echo "<a href='../_foto/".@$baris['gallery_angkot']."'><img src='../_foto/".@$baris['gallery_angkot']."'></a>";
+                              echo "<a href='../_foto/".$baris['gallery_angkot']."'><img src='../_foto/".$baris['gallery_angkot']."'></a>";
                             }
                           }
 
@@ -570,7 +573,7 @@ session_start();
     <script type="text/javascript" src="assets/js/gritter-conf.js"></script>
   <script src="assets/js/advanced-form-components.js"></script>      
     <script type="text/javascript">
-      @$(function() {
+      $(function() {
         //    fancybox
           jQuery(".fancybox").fancybox();
       });

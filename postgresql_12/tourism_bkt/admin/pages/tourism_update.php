@@ -20,8 +20,8 @@
       <a class="btn btn-compose">Update Information</a>
       <div class="box-body">
         <div class="form-group" id="hasilcari1">
-				  <?php if (isset(@$_GET['id'])){
-    	 			$id=@$_GET['id'];
+				  <?php if (isset($_GET['id'])){
+    	 			$id=$_GET['id'];
     				$sql = pg_query("SELECT id, name, address, open, close, ST_AsText(geom) as geom, id_type, ticket FROM tourism where id='$id'");
     				$data =  pg_fetch_array($sql);
     			?>

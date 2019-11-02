@@ -1,12 +1,12 @@
 <?php
 include("../../../connect.php");
 
-$passwordlama = @$_POST["passlama"];
+$passwordlama = $_POST["passlama"];
 $passlama = md5(md5($passwordlama));
-$passwordbaru = @$_POST["passbaru"];
+$passwordbaru = $_POST["passbaru"];
 $passbaru = md5(md5($passwordbaru));
-$konfirmasipassword = @$_POST["konfirm"];
-$username = @$_POST["user"];
+$konfirmasipassword = $_POST["konfirm"];
+$username = $_POST["user"];
 
 	$querycek = pg_query("select * from admin where username = '$username' and password = '$passlama'");
 	$count = pg_num_rows($querycek);

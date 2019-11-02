@@ -5,7 +5,7 @@
     $longi = @$_GET['longitude'];
 	$rad=@$_GET['rad'];
 
-	$querysearch="SELECT id, name, owner, cp, address, id_souvenir_type, employee, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, st_distance_sphere(ST_GeomFromText('POINT(".$longi." ".$latit.")',-1), geom) as jarak FROM souvenir where st_distance_sphere(ST_GeomFromText('POINT(".$longi." ".$latit.")',-1), geom) <= ".$rad.""; 
+	$querysearch="SELECT id, name, owner, cp, address, id_souvenir_type, employee, st_x(st_centroid(geom)) as lng, st_y(st_centroid(geom)) as lat, ST_DistanceSphere(ST_GeomFromText('POINT(".$longi." ".$latit.")',-1), geom) as jarak FROM souvenir where ST_DistanceSphere(ST_GeomFromText('POINT(".$longi." ".$latit.")',-1), geom) <= ".$rad.""; 
 
 	$hasil=pg_query($querysearch);
 

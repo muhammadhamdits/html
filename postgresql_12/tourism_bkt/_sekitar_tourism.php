@@ -5,9 +5,10 @@
     $longi = @$_GET['lng'];
 	$rad=@$_GET['rad'];
 
-	$querysearch="SELECT id, name, ST_X(ST_Centroid(geom)) AS lng, ST_Y(ST_CENTROID(geom)) As lat, st_distance_sphere(ST_GeomFromText('POINT(".$longi." ".$latit.")',-1), tourism.geom) as jarak FROM tourism  where st_distance_sphere(ST_GeomFromText('POINT(".$longi." ".$latit.")',-1), geom) <= ".$rad.""; 
+	$querysearch="SELECT id, name, ST_X(ST_Centroid(geom)) AS lng, ST_Y(ST_CENTROID(geom)) As lat, st_distancesphere(ST_GeomFromText('POINT(".$longi." ".$latit.")',-1), tourism.geom) as jarak FROM tourism  where st_distancesphere(ST_GeomFromText('POINT(".$longi." ".$latit.")',-1), geom) <= ".$rad.""; 
 
-	$hasil=pg_query($querysearch);
+    $hasil=pg_query($querysearch);
+    // var_dump($conn);
 
         while($baris = pg_fetch_array($hasil))
             {

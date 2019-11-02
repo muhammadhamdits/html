@@ -1,10 +1,11 @@
 <?php 
-
+session_start();
 include '../connect.php';
 
-$id = @$_POST['id'];
-$nama = @$_POST['nama'];
-$comment = @$_POST['comment'];
+$id = $_POST['id'];
+$review = $_POST['review'];
+$nama = $_SESSION['username'];
+$comment = $_POST['comment'];
 
 $cariMax = "select max(id_review) as max from review";
 $queryMax = pg_query($cariMax);
@@ -34,6 +35,8 @@ if(strpos($id,"H") !== false){
 }
 
 $query_sql = pg_query($sql);
+// var_dump($sql);
+// die();
 if($query_sql){
 	echo "<script>alert ('Data Successfully Added');</script>";
 }else{

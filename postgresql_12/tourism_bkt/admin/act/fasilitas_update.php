@@ -1,8 +1,8 @@
 <?php
 include ('../../../connect.php');
 
-$id	= @$_POST['id_fasilitas'];
-$fasilitas = @$_POST['fasilitas'];
+$id	= $_POST['id_fasilitas'];
+$fasilitas = $_POST['fasilitas'];
 
 $sql  = "update facility_tourism set name='$fasilitas' where id='$id'";
 $insert = pg_query($sql);

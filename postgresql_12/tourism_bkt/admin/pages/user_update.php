@@ -5,9 +5,9 @@
                         <div class="box-body"	>
              
                       <div class="form-group">
-                        <?php if (isset(@$_GET['username'])){
-					$username=@$_GET['username'];
-          $period=@$_GET['stewardship_period'];
+                        <?php if (isset($_GET['username'])){
+					$username=$_GET['username'];
+          $period=$_GET['stewardship_period'];
 					$sql = pg_query("SELECT stewardship_period, name, address, hp, role, username, password FROM admin where username='$username'");
 					$data = pg_fetch_array($sql);		
           //echo $data['username'];					
@@ -63,7 +63,7 @@
           <select multiple name="aset[]" id="id" class="form-control">
          
       <?php                         
-      $kuliner=pg_query("SELECT * from hotel where (username is null or username = '@$_GET[username]')"); 
+      $kuliner=pg_query("SELECT * from hotel where (username is null or username = '$_GET[username]')"); 
  
       while($kul = pg_fetch_assoc($kuliner)) 
       { 
@@ -78,7 +78,7 @@
         }              
       ?>   
       <?php                         
-      $kuliner=pg_query("SELECT * from tourism where (username is null or username = '@$_GET[username]')"); 
+      $kuliner=pg_query("SELECT * from tourism where (username is null or username = '$_GET[username]')"); 
  
       while($kul = pg_fetch_assoc($kuliner)) 
       { 
@@ -93,7 +93,7 @@
         }              
       ?>  
       <?php                         
-      $kuliner=pg_query("SELECT * from culinary_place where (username is null or username = '@$_GET[username]')"); 
+      $kuliner=pg_query("SELECT * from culinary_place where (username is null or username = '$_GET[username]')"); 
  
       while($kul = pg_fetch_assoc($kuliner)) 
       { 
@@ -108,7 +108,7 @@
         }              
       ?> 
       <?php                         
-      $souvenir=pg_query("SELECT * from souvenir where (username is null or username = '@$_GET[username]')");
+      $souvenir=pg_query("SELECT * from souvenir where (username is null or username = '$_GET[username]')");
  
       while($sou = pg_fetch_assoc($souvenir)) 
       { 
@@ -123,7 +123,7 @@
         }              
       ?>  
       <?php                         
-      $souvenir=pg_query("SELECT * from small_industri where (username is null or username = '@$_GET[username]')");
+      $souvenir=pg_query("SELECT * from small_industri where (username is null or username = '$_GET[username]')");
  
       while($sou = pg_fetch_assoc($souvenir)) 
       { 
