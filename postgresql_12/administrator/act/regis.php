@@ -14,7 +14,7 @@ include ('../../../connect.php');
     @$cek = pg_query(@$query);
   
   @$token = date("Ymdhi").@$username;
-@$homepage = file_get_contents("http://localhost/html/mailtemplate.php?token=@$token&user=@$username");
+@$homepage = file_get_contents("http://webgista.ddns.net/postgresql_12/mailtemplate.php?token=@$token&user=@$username");
 
   if(@$cek)
   {
@@ -45,7 +45,7 @@ include ('../../../connect.php');
   
   @$mail->ErrorInfo;
   } else {
-    header('location:http://localhost/html/hotel_bkt/admin/checkemailjo.php');
+    header('location:http://webgista.ddns.net/postgresql_12/hotel_bkt/admin/checkemailjo.php');
   }
     
   }

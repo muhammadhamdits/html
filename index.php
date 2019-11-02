@@ -1,6 +1,6 @@
 <?php
     if(isset($_POST['pilihan'])){
-        $p = $_GET['pilihan'];
+        $p = $_POST['pilihan'];
         if($p == 1){
             header('Location: http://webgista.ddns.net/mysql_8');
         } else if($p == 2){
@@ -49,7 +49,7 @@
 
     <!--BACKSTRETCH-->
     <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
-    <script type="text/javascript" src="../assets/js/jquery.backstretch.min.js"></script>
+    <script type="text/javascript" src="mysql_8/tourism_bkt/assets/js/jquery.backstretch.min.js"></script>
     <script>
         $.backstretch("mysql_8/tourism_bkt/assets/img/say.png", {speed: 500});
     </script>

@@ -1,3 +1,4 @@
 <?php
-	$conn = mysqli_connect('localhost', 'root', 'root', 'bkt_tourism');
+	$conn = mysqli_connect('localhost', 'root', '320819', 'tugas');
+	header("Access-Control-Allow-Origin: *");
 ?>
