@@ -812,8 +812,13 @@
             {
               alert('Data Did Not Exist !');
             }
-              rowtw = rows[0];
-              rowm  = rows[1];
+              rowtw = rows['tourism'];
+              rowm  = rows['worship_place'];
+              rowcp = rows['culinary_place'];
+              rowh  = rows['hotel'];
+              rowsi = rows['small_industry'];
+              
+              // FOR TOURISM
               for (var i in rowtw){ 
                 var row   = rowtw[i];
                 var id    = row.id;
@@ -834,7 +839,8 @@
                   });
                 markersDua.push(marker);
                 klikInfoWindow(id,marker);
-              }//end for               
+              }
+              // FOR Worship Place            
               for (var i in rowm){ 
                 var row   = rowm[i];
                 var id    = row.id;
@@ -853,7 +859,67 @@
                   });
                 markersDua.push(marker);
                 klikInfoWindowMes(id,marker);
-              }//end for
+              }
+              // FOR Culinary Place
+              for (var i in rowcp){ 
+                var row   = rowcp[i];
+                var id    = row.id;
+                var name  = row.name;
+                var lng   = row.lng;
+                var lat   = row.lat;
+                //MARKER
+                centerBaru = new google.maps.LatLng(lat, lng);
+                map.setCenter(centerBaru);
+                map.setZoom(16);  
+                var marker = new google.maps.Marker({
+                  position: centerBaru,              
+                  icon:'icon/marker_kuliner.png',
+                  animation: google.maps.Animation.DROP,
+                  map: map
+                  });
+                markersDua.push(marker);
+                klikInfoWindowKul(id,marker);
+              }
+              // FOR Hotel
+              for (var i in rowh){ 
+                var row   = rowh[i];
+                var id    = row.id;
+                var name  = row.name;
+                var lng   = row.lng;
+                var lat   = row.lat;
+                //MARKER
+                centerBaru = new google.maps.LatLng(lat, lng);
+                map.setCenter(centerBaru);
+                map.setZoom(16);  
+                var marker = new google.maps.Marker({
+                  position: centerBaru,              
+                  icon:'icon/marker_hotel.png',
+                  animation: google.maps.Animation.DROP,
+                  map: map
+                  });
+                markersDua.push(marker);
+                klikInfoWindowHotel(id,marker);
+              }
+              // FOR Small Industry
+              for (var i in rowsi){ 
+                var row   = rowsi[i];
+                var id    = row.id;
+                var name  = row.name;
+                var lng   = row.lng;
+                var lat   = row.lat;
+                //MARKER
+                centerBaru = new google.maps.LatLng(lat, lng);
+                map.setCenter(centerBaru);
+                map.setZoom(16);  
+                var marker = new google.maps.Marker({
+                  position: centerBaru,              
+                  icon:'icon/marker_industri.png',
+                  animation: google.maps.Animation.DROP,
+                  map: map
+                  });
+                markersDua.push(marker);
+                klikInfoWindowSM(id,marker);
+              }
           }});//end ajax 
       }
 
@@ -938,8 +1004,8 @@
             var lng = row.lng;
             var lng2 = row.lng2;
             var lat2=row.lat2;
-            console.log(id);
-            console.log(name);
+            // console.log(id);
+            // console.log(name);
 
             //POSISI MAP
             centerBaru = new google.maps.LatLng(lat2, lng2);
