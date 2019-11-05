@@ -5,9 +5,12 @@
     $lng   = @$_GET['lng'];
     $rad   = @$_GET['rad'];
 
-    $q = "SELECT worship_place.id as wpid, event.id, event.name, ST_X(ST_Centroid(worship_place.geom)) AS lng, ST_Y(ST_Centroid(worship_place.geom)) As lat, event.description, type_event.name as tipe, worship_place.name as masjid, ustad.name as ustad FROM event JOIN type_event ON type_event.id=event.id_type_event JOIN detail_event ON event.id=detail_event.id_event JOIN worship_place ON detail_event.id_worship_place=worship_place.id JOIN ustad ON detail_event.id_ustad=ustad.id WHERE ST_Distance_Sphere(ST_Centroid(worship_place.geom), ST_GeomFromText('POINT($lng $latit)',-1)) < $rad";
+    $q = "SELECT worship_place.id as wpid, event.id, event.name, ST_X(ST_Centroid(worship_place.geom)) AS lng, ST_Y(ST_Centroid(worship_place.geom)) As lat, event.description, type_event.name as tipe, worship_place.name as masjid, ustad.name as ustad FROM event JOIN type_event ON type_event.id=event.id_type_event JOIN detail_event ON event.id=detail_event.id_event JOIN worship_place ON detail_event.id_worship_place=worship_place.id JOIN ustad ON detail_event.id_ustad=ustad.id WHERE ST_Distance_Sphere(ST_Centroid(worship_place.geom), ST_GeomFromText('POINT($lng $latit)',0)) < $rad";
 
+    
     $hasil=mysqli_query($conn, $q);
+    // var_dump($q);
+    // die();
         while($baris = mysqli_fetch_array($hasil))
             {
                 $id     = $baris['id'];

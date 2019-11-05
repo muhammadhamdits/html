@@ -806,13 +806,13 @@
           // document.getElementById('culinary').value=""; 
 
           $('#kanan_table').append("<tr><th class='centered'>Name</th><th class='centered'>Action</th></tr>");
-          console.log(server+'_data_tourism_cari.php?tipe='+tipe+'&nilai='+y+'&rad='+z+'&nilai2='+yy);
-          $.ajax({url: server+'_data_tourism_cari.php?tipe='+tipe+'&nilai='+y+'&rad='+z+'&nilai2='+yy, data: "", dataType: 'json', success: function(rows){ 
-            if(rows == null)
+          console.log(server+'_data_tourism_cari.php?tipe='+tipe+'&nilai='+y+'&rad='+z+'&nilai2='+yy+'&a=a');
+          $.ajax({url: server+'_data_tourism_cari.php?tipe='+tipe+'&nilai='+y+'&rad='+z+'&nilai2='+yy+'&a=a', data: "", dataType: 'json', success: function(rows){ 
+            rowtw = rows['tourism'];
+            if(rowtw == null)
             {
               alert('Data Did Not Exist !');
             }
-              rowtw = rows['tourism'];
               rowm  = rows['worship_place'];
               rowcp = rows['culinary_place'];
               rowh  = rows['hotel'];

@@ -42,7 +42,7 @@ if ($tipe == 1) {
 	< $rad WHERE LOWER(hotel_type.name) like '%' || LOWER('$nilai2') || '%' AND LOWER(facility_hotel.name) like '%' || LOWER('$nilai') || '%'";
 	$qsh	="SELECT DISTINCT hotel.id, hotel.name, st_x(st_centroid(hotel.geom)) as lon ,st_y(st_centroid(hotel.geom)) as lat FROM hotel left JOIN detail_facility_hotel ON hotel.id=detail_facility_hotel.id_hotel left JOIN facility_hotel ON detail_facility_hotel.id_facility=facility_hotel.id left JOIN hotel_type ON hotel.id_type=hotel_type.id JOIN tourism ON ST_DistanceSphere(ST_Centroid(hotel.geom), ST_Centroid(tourism.geom)) < $rad WHERE LOWER(hotel_type.name) like '%' || LOWER('$nilai2') || '%' AND LOWER(facility_hotel.name) like '%' || LOWER('$nilai') || '%'";
 }
-// var_dump($qscp);
+// var_dump($querysearch);
 // die();
 
 $hasil=pg_query($querysearch);
