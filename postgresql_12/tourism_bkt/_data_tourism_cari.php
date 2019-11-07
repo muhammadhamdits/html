@@ -41,6 +41,15 @@ if ($tipe == 1) {
 	left JOIN tourism ON ST_DistanceSphere(ST_Centroid(hotel.geom), ST_Centroid(tourism.geom))
 	< $rad WHERE LOWER(hotel_type.name) like '%' || LOWER('$nilai2') || '%' AND LOWER(facility_hotel.name) like '%' || LOWER('$nilai') || '%'";
 	$qsh	="SELECT DISTINCT hotel.id, hotel.name, st_x(st_centroid(hotel.geom)) as lon ,st_y(st_centroid(hotel.geom)) as lat FROM hotel left JOIN detail_facility_hotel ON hotel.id=detail_facility_hotel.id_hotel left JOIN facility_hotel ON detail_facility_hotel.id_facility=facility_hotel.id left JOIN hotel_type ON hotel.id_type=hotel_type.id JOIN tourism ON ST_DistanceSphere(ST_Centroid(hotel.geom), ST_Centroid(tourism.geom)) < $rad WHERE LOWER(hotel_type.name) like '%' || LOWER('$nilai2') || '%' AND LOWER(facility_hotel.name) like '%' || LOWER('$nilai') || '%'";
+} elseif ($tipe == 9) {
+	$querysearch	="SELECT DISTINCT tourism.id, tourism.name, st_x(st_centroid(tourism.geom)) as lon, st_y(st_centroid(tourism.geom)) as lat, district.name as d FROM tourism JOIN district ON ST_Within(tourism.geom, district.geom) JOIN souvenir ON ST_DistanceSphere(ST_Centroid(souvenir.geom), ST_Centroid(tourism.geom)) < $rad JOIN souvenir_type ON souvenir.id_souvenir_type=souvenir_type.id JOIN detail_product_souvenir ON souvenir.id=detail_product_souvenir.id_souvenir JOIN product_souvenir ON detail_product_souvenir.id_product=product_souvenir.id WHERE LOWER(district.name) like '%' || LOWER('$nilai') || '%' AND LOWER(product_souvenir.product) like '%' || LOWER('$nilai2') || '%'";
+	$qss	="SELECT DISTINCT souvenir.id, souvenir.name, st_x(st_centroid(souvenir.geom)) as lon, st_y(st_centroid(souvenir.geom)) as lat, district.name as d FROM tourism JOIN district ON ST_Within(tourism.geom, district.geom) JOIN souvenir ON ST_DistanceSphere(ST_Centroid(souvenir.geom), ST_Centroid(tourism.geom)) < $rad JOIN souvenir_type ON souvenir.id_souvenir_type=souvenir_type.id JOIN detail_product_souvenir ON souvenir.id=detail_product_souvenir.id_souvenir JOIN product_souvenir ON detail_product_souvenir.id_product=product_souvenir.id WHERE LOWER(district.name) like '%' || LOWER('$nilai') || '%' AND LOWER(product_souvenir.product) like '%' || LOWER('$nilai2') || '%'";
+} elseif ($tipe == 10) {
+	$querysearch	="SELECT distinct tourism.id, tourism.name, st_x(st_centroid(tourism.geom)) as lon ,st_y(st_centroid(tourism.geom)) as lat , district.name as d  from tourism JOIN district ON ST_Within(tourism.geom, district.geom) JOIN culinary_place ON ST_DistanceSphere(ST_Centroid(tourism.geom), ST_Centroid(culinary_place.geom)) < $rad left JOIN detail_culinary ON culinary_place.id=detail_culinary.id_culinary_place left JOIN culinary ON detail_culinary.id_culinary=culinary.id JOIN tourism_type ON tourism.id_type=tourism_type.id where LOWER(district.name) like '%' || LOWER('$nilai') || '%' AND LOWER(tourism_type.name) like '%' || LOWER('$nilai2') ||'%' AND LOWER(culinary.name) like '%' || LOWER('$nilai3') ||'%' GROUP BY (tourism.id, district.name)";
+	$qsr	="SELECT distinct culinary_place.id, culinary_place.name, st_x(st_centroid(culinary_place.geom)) as lon ,st_y(st_centroid(culinary_place.geom)) as lat , district.name as d  from tourism JOIN district ON ST_Within(tourism.geom, district.geom) JOIN culinary_place ON ST_DistanceSphere(ST_Centroid(tourism.geom), ST_Centroid(culinary_place.geom)) < $rad left JOIN detail_culinary ON culinary_place.id=detail_culinary.id_culinary_place left JOIN culinary ON detail_culinary.id_culinary=culinary.id JOIN tourism_type ON tourism.id_type=tourism_type.id where LOWER(district.name) like '%' || LOWER('$nilai') || '%' AND LOWER(tourism_type.name) like '%' || LOWER('$nilai2') ||'%' AND LOWER(culinary.name) like '%' || LOWER('$nilai3') ||'%' GROUP BY (culinary_place.id, district.name)";
+} elseif ($tipe == 11) {
+	$querysearch	="SELECT DISTINCT tourism.id, tourism.name, st_x(st_centroid(tourism.geom)) as lon, st_y(st_centroid(tourism.geom)) as lat, district.name as d FROM tourism JOIN district ON ST_Within(tourism.geom, district.geom) JOIN culinary_place ON ST_DistanceSphere(ST_Centroid(culinary_place.geom), ST_Centroid(tourism.geom)) < $rad JOIN detail_culinary ON culinary_place.id=detail_culinary.id_culinary_place JOIN culinary ON detail_culinary.id_culinary=culinary.id JOIN detail_culinary_place ON culinary_place.id=detail_culinary_place.id_culinary_place JOIN detail_tourism ON tourism.id=detail_tourism.id_tourism WHERE LOWER(district.name) like '%' || LOWER('$nilai') || '%' AND detail_culinary.price < $nilai2";
+	$qsr	="SELECT DISTINCT culinary.id, culinary.name, st_x(st_centroid(culinary_place.geom)) as lon, st_y(st_centroid(culinary_place.geom)) as lat, district.name as d FROM tourism JOIN district ON ST_Within(tourism.geom, district.geom) JOIN culinary_place ON ST_DistanceSphere(ST_Centroid(culinary_place.geom), ST_Centroid(tourism.geom)) < $rad JOIN detail_culinary ON culinary_place.id=detail_culinary.id_culinary_place JOIN culinary ON detail_culinary.id_culinary=culinary.id JOIN detail_culinary_place ON culinary_place.id=detail_culinary_place.id_culinary_place JOIN detail_tourism ON tourism.id=detail_tourism.id_tourism WHERE LOWER(district.name) like '%' || LOWER('$nilai') || '%' AND detail_culinary.price < $nilai2";
 }
 // var_dump($querysearch);
 // die();
@@ -113,6 +122,34 @@ if(isset($qssi)){ // Small Industry
 		}
 	}
 	$dataarray['small_industry']=$data;
+}
+if(isset($qss)){ // Souvenir
+	$data = [];
+	$hasil=pg_query($qss);
+	while($baris = pg_fetch_assoc($hasil)){
+		if($baris['id'] != NULL){
+			$id=$baris['id'];
+			$name=$baris['name'];
+			$lng=$baris['lon'];
+			$lat=$baris['lat'];
+			$data[]=array('id'=>$id,'name'=>$name,'lng'=>$lng,'lat'=>$lat);
+		}
+	}
+	$dataarray['souvenir']=$data;
+}
+if(isset($qsr)){ // Restaurant
+	$data = [];
+	$hasil=pg_query($qsr);
+	while($baris = pg_fetch_assoc($hasil)){
+		if($baris['id'] != NULL){
+			$id=$baris['id'];
+			$name=$baris['name'];
+			$lng=$baris['lon'];
+			$lat=$baris['lat'];
+			$data[]=array('id'=>$id,'name'=>$name,'lng'=>$lng,'lat'=>$lat);
+		}
+	}
+	$dataarray['restaurant']=$data;
 }
 echo json_encode ($dataarray);
 ?>

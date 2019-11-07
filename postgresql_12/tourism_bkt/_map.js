@@ -750,6 +750,7 @@
           var y = "";
           var z = 0;
           var yy = "";
+          var yyy = "";
           if (tipe == 1) {
             document.getElementById('judul_table').innerHTML="Search tourism by name";
             y = document.getElementById('input_name').value;            
@@ -785,6 +786,25 @@
             yy = document.getElementById('h_type').value;
             z = document.getElementById('inputradius4').value;
             z = z*100;
+          } else if (tipe == 9) {
+            document.getElementById('judul_table').innerHTML="Search tourism by souvenir";
+            y = document.getElementById('s_district').value;   
+            yy = document.getElementById('s_type').value;
+            z = document.getElementById('inputradius7').value;
+            z = z*100;
+          } else if (tipe == 10) {
+            document.getElementById('judul_table').innerHTML="Search tourism by restaurant culinary";
+            y = document.getElementById('r_district').value;   
+            yy = document.getElementById('r_type').value;
+            yyy = document.getElementById('r_cul').value;
+            z = document.getElementById('inputradius8').value;
+            z = z*100;
+          } else if (tipe == 11) {
+            document.getElementById('judul_table').innerHTML="Search tourism by restaurant price";
+            y = document.getElementById('r_district2').value;   
+            yy = document.getElementById('r_price').value;
+            z = document.getElementById('inputradius9').value;
+            z = z*100;
           }
 
           if (y == "") {          
@@ -806,8 +826,8 @@
           // document.getElementById('culinary').value=""; 
 
           $('#kanan_table').append("<tr><th class='centered'>Name</th><th class='centered'>Action</th></tr>");
-          console.log(server+'_data_tourism_cari.php?tipe='+tipe+'&nilai='+y+'&rad='+z+'&nilai2='+yy+'&a=a');
-          $.ajax({url: server+'_data_tourism_cari.php?tipe='+tipe+'&nilai='+y+'&rad='+z+'&nilai2='+yy+'&a=a', data: "", dataType: 'json', success: function(rows){ 
+          console.log(server+'_data_tourism_cari.php?tipe='+tipe+'&nilai='+y+'&rad='+z+'&nilai2='+yy+'&nilai3='+yyy);
+          $.ajax({url: server+'_data_tourism_cari.php?tipe='+tipe+'&nilai='+y+'&rad='+z+'&nilai2='+yy+'&nilai3='+yyy, data: "", dataType: 'json', success: function(rows){ 
             rowtw = rows['tourism'];
             if(rowtw == null)
             {
@@ -817,6 +837,8 @@
               rowcp = rows['culinary_place'];
               rowh  = rows['hotel'];
               rowsi = rows['small_industry'];
+              rowso = rows['souvenir'];
+              rowr  = rows['restaurant'];
               
               // FOR TOURISM
               for (var i in rowtw){ 
@@ -919,6 +941,46 @@
                   });
                 markersDua.push(marker);
                 klikInfoWindowSM(id,marker);
+              }
+              // FOR Souvenir
+              for (var i in rowso){ 
+                var row   = rowso[i];
+                var id    = row.id;
+                var name  = row.name;
+                var lng   = row.lng;
+                var lat   = row.lat;
+                //MARKER
+                centerBaru = new google.maps.LatLng(lat, lng);
+                map.setCenter(centerBaru);
+                map.setZoom(16);  
+                var marker = new google.maps.Marker({
+                  position: centerBaru,              
+                  icon:'icon/marker_oo.png',
+                  animation: google.maps.Animation.DROP,
+                  map: map
+                  });
+                markersDua.push(marker);
+                klikInfoWindowSou(id,marker);
+              }
+              // FOR Restaurant
+              for (var i in rowr){ 
+                var row   = rowr[i];
+                var id    = row.id;
+                var name  = row.name;
+                var lng   = row.lng;
+                var lat   = row.lat;
+                //MARKER
+                centerBaru = new google.maps.LatLng(lat, lng);
+                map.setCenter(centerBaru);
+                map.setZoom(16);  
+                var marker = new google.maps.Marker({
+                  position: centerBaru,              
+                  icon:'icon/marker_kuliner.png',
+                  animation: google.maps.Animation.DROP,
+                  map: map
+                  });
+                markersDua.push(marker);
+                klikInfoWindowRes(id,marker);
               }
           }});//end ajax 
       }
