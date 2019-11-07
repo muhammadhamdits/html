@@ -255,24 +255,37 @@ sidebar start-->
                           </ul>
                       </li>
                       <li class="sub">
-                          <a style="cursor:pointer;background:none"><i class="fa fa-search"></i> By Hotel Price</a>
-                          <ul class="sub">      
-                            <li style="margin-top:10px">
-                              <label for="inputradius10" style="font-size: 10pt; color:white;">Hotel Radius : </label>
-                              <label  id="rad10"  style="font-size: 10pt; color:white;">0</label ><p style="font-size: 10pt; color:white;display:inline;"> m</p>
-                              <input onchange="rad10()" type="range" id="inputradius10" name="inputradius10" data-highlight="true" min="0" max="20" value="0" >
-                            </li>                        
+                          <a style="cursor:pointer;background:none"><i class="fa fa-search"></i> By Type, Facility, and Angkot</a>
+                          <ul class="sub">                         
                             <li style="margin-top:10px">
                               <label for="t_type" style="font-size: 10pt; color:white;">Tourism Type : </label>
-                              <input id="t_type" type="text" class="form-control">
-                            </li>                                     
+                              <select name="t_type" id="t_type">
+                                <?php
+                                  $q = "SELECT * FROM tourism_type";
+                                  $r = pg_query($q);
+                                  while($d = pg_fetch_object($r)){ ?>
+                                    <option value="<?= $d->id; ?>"><?= $d->name; ?></option>
+                                <?php
+                                  }
+                                ?>
+                              </select>
+                            </li>  
                             <li style="margin-top:10px">
-                              <label for="h_facility2" style="font-size: 10pt; color:white;">Hotel Facility : </label>
-                              <input id="h_facility2" type="text" class="form-control">
-                            </li>                                     
+                              <label for="t_facility2" style="font-size: 10pt; color:white;">Tourism Facility : </label>
+                              <input id="t_facility2" type="text" class="form-control">
+                            </li>                                 
                             <li style="margin-top:10px">
-                              <label for="h_price" style="font-size: 10pt; color:white;">Room Price (<=) : Rp </label>
-                              <input id="h_price" type="number" class="form-control">
+                              <label for="angkot" style="font-size: 10pt; color:white;">Angkot : </label>
+                              <select name="angkot" id="angkot">
+                                <?php
+                                  $q = "SELECT * FROM angkot";
+                                  $r = pg_query($q);
+                                  while($d = pg_fetch_object($r)){ ?>
+                                    <option value="<?= $d->id; ?>"><?= $d->destination; ?></option>
+                                <?php
+                                  }
+                                ?>
+                              </select>
                             </li>                                 
                             <li><a onclick="init();cari_tourism(12)" style="cursor:pointer;background:none">Search</a></li>
                           </ul>

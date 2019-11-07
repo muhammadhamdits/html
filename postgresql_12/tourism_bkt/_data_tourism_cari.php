@@ -4,6 +4,7 @@ require '../connect.php';
 $tipe   = @$_GET["tipe"];		// Cari berdasarkan apa
 $nilai  = @$_GET["nilai"];	// Isi yang dicari
 $nilai2 = @$_GET["nilai2"];	// Isi yang dicari
+$nilai3 = @$_GET["nilai3"];	// Isi yang dicari
 $rad    = @$_GET["rad"];	// rad yang dicari
 
 /*
@@ -50,6 +51,8 @@ if ($tipe == 1) {
 } elseif ($tipe == 11) {
 	$querysearch	="SELECT DISTINCT tourism.id, tourism.name, st_x(st_centroid(tourism.geom)) as lon, st_y(st_centroid(tourism.geom)) as lat, district.name as d FROM tourism JOIN district ON ST_Within(tourism.geom, district.geom) JOIN culinary_place ON ST_DistanceSphere(ST_Centroid(culinary_place.geom), ST_Centroid(tourism.geom)) < $rad JOIN detail_culinary ON culinary_place.id=detail_culinary.id_culinary_place JOIN culinary ON detail_culinary.id_culinary=culinary.id JOIN detail_culinary_place ON culinary_place.id=detail_culinary_place.id_culinary_place JOIN detail_tourism ON tourism.id=detail_tourism.id_tourism WHERE LOWER(district.name) like '%' || LOWER('$nilai') || '%' AND detail_culinary.price < $nilai2";
 	$qsr	="SELECT DISTINCT culinary.id, culinary.name, st_x(st_centroid(culinary_place.geom)) as lon, st_y(st_centroid(culinary_place.geom)) as lat, district.name as d FROM tourism JOIN district ON ST_Within(tourism.geom, district.geom) JOIN culinary_place ON ST_DistanceSphere(ST_Centroid(culinary_place.geom), ST_Centroid(tourism.geom)) < $rad JOIN detail_culinary ON culinary_place.id=detail_culinary.id_culinary_place JOIN culinary ON detail_culinary.id_culinary=culinary.id JOIN detail_culinary_place ON culinary_place.id=detail_culinary_place.id_culinary_place JOIN detail_tourism ON tourism.id=detail_tourism.id_tourism WHERE LOWER(district.name) like '%' || LOWER('$nilai') || '%' AND detail_culinary.price < $nilai2";
+} elseif ($tipe == 12) {
+	$querysearch	="SELECT DISTINCT tourism.id, tourism.name, ST_X(ST_Centroid(tourism.geom)) AS lon, ST_Y(ST_Centroid(tourism.geom)) AS lat FROM tourism JOIN detail_tourism ON tourism.id=detail_tourism.id_tourism JOIN angkot ON detail_tourism.id_angkot=angkot.id JOIN tourism_type ON tourism.id_type=tourism_type.id JOIN detail_facility_tourism ON tourism.id=detail_facility_tourism.id_tourism JOIN facility_tourism ON detail_facility_tourism.id_facility=facility_tourism.id WHERE tourism_type.id='$nilai' AND facility_tourism.name like '%$nilai2%' AND angkot.id='$nilai3'";
 }
 // var_dump($querysearch);
 // die();

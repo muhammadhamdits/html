@@ -805,6 +805,11 @@
             yy = document.getElementById('r_price').value;
             z = document.getElementById('inputradius9').value;
             z = z*100;
+          } else if (tipe == 12) {
+            document.getElementById('judul_table').innerHTML="Search tourism by Angkot";
+            y = document.getElementById('t_type').value;   
+            yy = document.getElementById('t_facility2').value;
+            yyy = document.getElementById('angkot').value;
           }
 
           if (y == "") {          
