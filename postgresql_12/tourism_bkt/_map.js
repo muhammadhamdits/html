@@ -806,10 +806,41 @@
             z = document.getElementById('inputradius9').value;
             z = z*100;
           } else if (tipe == 12) {
-            document.getElementById('judul_table').innerHTML="Search tourism by Angkot";
+            document.getElementById('judul_table').innerHTML="Search tourism by Angkot Type";
             y = document.getElementById('t_type').value;   
             yy = document.getElementById('t_facility2').value;
             yyy = document.getElementById('angkot').value;
+          } else if (tipe == 13) {
+            document.getElementById('judul_table').innerHTML="Search tourism by Angkot Price";
+            y = document.getElementById('t_price').value;   
+            yy = document.getElementById('t_facility3').value;
+            yyy = document.getElementById('angkot2').value;
+            z = document.getElementById('inputradius10').value;
+            z = z*100;
+          } else if (tipe == 14) {
+            document.getElementById('judul_table').innerHTML="Search tourism by Time and Type";
+            y = document.getElementById('t_type2').value;   
+            yy = document.getElementById('open').value;
+            yyy = document.getElementById('close').value;
+          } else if (tipe == 15) {
+            document.getElementById('judul_table').innerHTML="Search tourism by Ticket";
+            y = document.getElementById('t_price2').value;
+          } else if (tipe == 16) {
+            document.getElementById('judul_table').innerHTML="Search tourism by Ticket & Facility";
+            y = document.getElementById('t_facility4').value;
+            yy = document.getElementById('t_price3').value;
+          } else if (tipe == 17) {
+            document.getElementById('judul_table').innerHTML="Search tourism by Ticket & Type";
+            y = document.getElementById('t_type3').value;
+            yy = document.getElementById('t_price4').value;
+          } else if (tipe == 18) {
+            document.getElementById('judul_table').innerHTML="Search tourism by Ticket & Address";
+            y = document.getElementById('t_address').value;
+            yy = document.getElementById('t_price5').value;
+          } else if (tipe == 19) {
+            document.getElementById('judul_table').innerHTML="Search tourism by Angkot Worship";
+            y = document.getElementById('wp_type').value;
+            yy = document.getElementById('wp_facility').value;
           }
 
           if (y == "") {          

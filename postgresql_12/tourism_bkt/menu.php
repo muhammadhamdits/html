@@ -255,7 +255,7 @@ sidebar start-->
                           </ul>
                       </li>
                       <li class="sub">
-                          <a style="cursor:pointer;background:none"><i class="fa fa-search"></i> By Type, Facility, and Angkot</a>
+                          <a style="cursor:pointer;background:none"><i class="fa fa-search"></i> By Type, Angkot, and Facility</a>
                           <ul class="sub">                         
                             <li style="margin-top:10px">
                               <label for="t_type" style="font-size: 10pt; color:white;">Tourism Type : </label>
@@ -288,6 +288,149 @@ sidebar start-->
                               </select>
                             </li>                                 
                             <li><a onclick="init();cari_tourism(12)" style="cursor:pointer;background:none">Search</a></li>
+                          </ul>
+                      </li>
+                      <li class="sub">
+                          <a style="cursor:pointer;background:none"><i class="fa fa-search"></i> By Price, Angkot, and Facility</a>
+                          <ul class="sub">     
+                            <li style="margin-top:10px">
+                              <label for="inputradius10" style="font-size: 10pt; color:white;">Culinary Radius : </label>
+                              <label  id="rad10"  style="font-size: 10pt; color:white;">0</label ><p style="font-size: 10pt; color:white;display:inline;"> m</p>
+                              <input onchange="rad10()" type="range" id="inputradius10" name="inputradius10" data-highlight="true" min="0" max="20" value="0" >
+                            </li>                    
+                            <li style="margin-top:10px">
+                              <label for="t_price" style="font-size: 10pt; color:white;">Tourism Price : </label>
+                              <input id="t_price" type="number" class="form-control">
+                            </li>
+                            <li style="margin-top:10px">
+                              <label for="t_facility3" style="font-size: 10pt; color:white;">Culinary Facility : </label>
+                              <input id="t_facility3" type="text" class="form-control">
+                            </li>
+                            <li style="margin-top:10px">
+                              <label for="angkot2" style="font-size: 10pt; color:white;">Angkot : </label>
+                              <select name="angkot2" id="angkot2">
+                                <?php
+                                  $q = "SELECT * FROM angkot";
+                                  $r = pg_query($q);
+                                  while($d = pg_fetch_object($r)){ ?>
+                                    <option value="<?= $d->id; ?>"><?= $d->destination; ?></option>
+                                <?php
+                                  }
+                                ?>
+                              </select>
+                            </li>                                 
+                            <li><a onclick="init();cari_tourism(13)" style="cursor:pointer;background:none">Search</a></li>
+                          </ul>
+                      </li>
+                      <li class="sub">
+                          <a style="cursor:pointer;background:none"><i class="fa fa-search"></i> By Time and Type</a>
+                          <ul class="sub">   
+                            <li style="margin-top:10px">
+                              <label for="t_type2" style="font-size: 10pt; color:white;">Tourism Type : </label>
+                              <select name="t_type2" id="t_type2">
+                                <?php
+                                  $q = "SELECT * FROM tourism_type";
+                                  $r = pg_query($q);
+                                  while($d = pg_fetch_object($r)){ ?>
+                                    <option value="<?= $d->id; ?>"><?= $d->name; ?></option>
+                                <?php
+                                  }
+                                ?>
+                              </select>
+                            </li>
+                            <li style="margin-top:10px">
+                              <label for="open" style="font-size: 10pt; color:white;">Open : </label>
+                              <input id="open" type="time" class="form-control">
+                            </li>
+                            <li style="margin-top:10px">
+                              <label for="close" style="font-size: 10pt; color:white;">Close : </label>
+                              <input id="close" type="time" class="form-control">
+                            </li>
+                            <li><a onclick="init();cari_tourism(14)" style="cursor:pointer;background:none">Search</a></li>
+                          </ul>
+                      </li>
+                      <li class="sub">
+                          <a style="cursor:pointer;background:none"><i class="fa fa-search"></i> By Ticket</a>
+                          <ul class="sub">
+                            <li style="margin-top:10px">
+                              <label for="t_price2" style="font-size: 10pt; color:white;">Price : </label>
+                              <input id="t_price2" type="number" class="form-control">
+                            </li>
+                            <li><a onclick="init();cari_tourism(15)" style="cursor:pointer;background:none">Search</a></li>
+                          </ul>
+                      </li>
+                      <li class="sub">
+                          <a style="cursor:pointer;background:none"><i class="fa fa-search"></i> By Ticket & Facility</a>
+                          <ul class="sub">
+                            <li style="margin-top:10px">
+                              <label for="t_price3" style="font-size: 10pt; color:white;">Price : </label>
+                              <input id="t_price3" type="number" class="form-control">
+                            </li>
+                            <li style="margin-top:10px">
+                              <label for="t_facility4" style="font-size: 10pt; color:white;">Facility : </label>
+                              <input id="t_facility4" type="text" class="form-control">
+                            </li>
+                            <li><a onclick="init();cari_tourism(16)" style="cursor:pointer;background:none">Search</a></li>
+                          </ul>
+                      </li>
+                      <li class="sub">
+                          <a style="cursor:pointer;background:none"><i class="fa fa-search"></i> By Ticket & Type</a>
+                          <ul class="sub">
+                            <li style="margin-top:10px">
+                              <label for="t_price4" style="font-size: 10pt; color:white;">Price : </label>
+                              <input id="t_price4" type="number" class="form-control">
+                            </li>
+                            <li style="margin-top:10px">
+                              <label for="t_type3" style="font-size: 10pt; color:white;">Tourism Type : </label>
+                              <select name="t_type3" id="t_type3">
+                                <?php
+                                  $q = "SELECT * FROM tourism_type";
+                                  $r = pg_query($q);
+                                  while($d = pg_fetch_object($r)){ ?>
+                                    <option value="<?= $d->id; ?>"><?= $d->name; ?></option>
+                                <?php
+                                  }
+                                ?>
+                              </select>
+                            </li>
+                            <li><a onclick="init();cari_tourism(17)" style="cursor:pointer;background:none">Search</a></li>
+                          </ul>
+                      </li>
+                      <li class="sub">
+                          <a style="cursor:pointer;background:none"><i class="fa fa-search"></i> By Ticket & Address</a>
+                          <ul class="sub">
+                            <li style="margin-top:10px">
+                              <label for="t_price5" style="font-size: 10pt; color:white;">Price : </label>
+                              <input id="t_price5" type="number" class="form-control">
+                            </li>
+                            <li style="margin-top:10px">
+                              <label for="t_address" style="font-size: 10pt; color:white;">Address : </label>
+                              <input id="t_address" type="text" class="form-control">
+                            </li>
+                            <li><a onclick="init();cari_tourism(18)" style="cursor:pointer;background:none">Search</a></li>
+                          </ul>
+                      </li>
+                      <li class="sub">
+                          <a style="cursor:pointer;background:none"><i class="fa fa-search"></i> By Angkot Worship Place</a>
+                          <ul class="sub">
+                            <li style="margin-top:10px">
+                              <label for="wp_type" style="font-size: 10pt; color:white;">Worship Type : </label>
+                              <select name="wp_type" id="wp_type">
+                                <?php
+                                  $q = "SELECT * FROM category_worship_place";
+                                  $r = pg_query($q);
+                                  while($d = pg_fetch_object($r)){ ?>
+                                    <option value="<?= $d->id; ?>"><?= $d->name; ?></option>
+                                <?php
+                                  }
+                                ?>
+                              </select>
+                            </li>
+                            <li style="margin-top:10px">
+                              <label for="wp_facility" style="font-size: 10pt; color:white;">Worship Facility : </label>
+                              <input id="wp_facility" type="text" class="form-control">
+                            </li>
+                            <li><a onclick="init();cari_tourism(19)" style="cursor:pointer;background:none">Search</a></li>
                           </ul>
                       </li>
                     </ul>
