@@ -1,11 +1,11 @@
 <?php
 require '../connect.php';
 
-$tipe   = @$_GET["tipe"];		// Cari berdasarkan apa
-$nilai  = @$_GET["nilai"];	// Isi yang dicari
-$nilai2 = @$_GET["nilai2"];	// Isi yang dicari
-$nilai3 = @$_GET["nilai3"];	// Isi yang dicari
-$rad    = @$_GET["rad"];	// rad yang dicari
+$tipe   = $_GET["tipe"];	// Cari berdasarkan apa
+$nilai  = $_GET["nilai"];	// Isi yang dicari
+$nilai2 = $_GET["nilai2"];	// Isi yang dicari
+$nilai3 = $_GET["nilai3"];	// Isi yang dicari
+$rad    = $_GET["rad"];	// rad yang dicari
 
 /*
 ISI TIPE:
@@ -53,8 +53,11 @@ if ($tipe == 1) {
 	$qsr	="SELECT DISTINCT culinary.id, culinary.name, st_x(st_centroid(culinary_place.geom)) as lon, st_y(st_centroid(culinary_place.geom)) as lat, district.name as d FROM tourism JOIN district ON ST_Within(tourism.geom, district.geom) JOIN culinary_place ON ST_DistanceSphere(ST_Centroid(culinary_place.geom), ST_Centroid(tourism.geom)) < $rad JOIN detail_culinary ON culinary_place.id=detail_culinary.id_culinary_place JOIN culinary ON detail_culinary.id_culinary=culinary.id JOIN detail_culinary_place ON culinary_place.id=detail_culinary_place.id_culinary_place JOIN detail_tourism ON tourism.id=detail_tourism.id_tourism WHERE LOWER(district.name) like '%' || LOWER('$nilai') || '%' AND detail_culinary.price < $nilai2";
 } elseif ($tipe == 12) {
 	$querysearch	="SELECT DISTINCT tourism.id, tourism.name, ST_X(ST_Centroid(tourism.geom)) AS lon, ST_Y(ST_Centroid(tourism.geom)) AS lat FROM tourism JOIN detail_tourism ON tourism.id=detail_tourism.id_tourism JOIN angkot ON detail_tourism.id_angkot=angkot.id JOIN tourism_type ON tourism.id_type=tourism_type.id JOIN detail_facility_tourism ON tourism.id=detail_facility_tourism.id_tourism JOIN facility_tourism ON detail_facility_tourism.id_facility=facility_tourism.id WHERE tourism_type.id='$nilai' AND facility_tourism.name like '%$nilai2%' AND angkot.id='$nilai3'";
+	$qsa	="SELECT DISTINCT angkot.id, angkot_color.color FROM tourism JOIN detail_tourism ON tourism.id=detail_tourism.id_tourism JOIN angkot ON detail_tourism.id_angkot=angkot.id JOIN tourism_type ON tourism.id_type=tourism_type.id JOIN detail_facility_tourism ON tourism.id=detail_facility_tourism.id_tourism JOIN facility_tourism ON detail_facility_tourism.id_facility=facility_tourism.id JOIN angkot_color ON angkot.id_color=angkot_color.id WHERE tourism_type.id='$nilai' AND facility_tourism.name like '%$nilai2%' AND angkot.id='$nilai3'";
 } elseif ($tipe == 13) {
 	$querysearch	="SELECT DISTINCT tourism.id, tourism.name, ST_X(ST_Centroid(tourism.geom)) AS lon, ST_Y(ST_Centroid(tourism.geom)) AS lat FROM tourism JOIN detail_tourism ON tourism.id=detail_tourism.id_tourism JOIN angkot ON detail_tourism.id_angkot=angkot.id JOIN culinary_place ON ST_DistanceSphere(ST_Centroid(tourism.geom), ST_Centroid(culinary_place.geom)) < $rad JOIN detail_facility_culinary ON culinary_place.id=detail_facility_culinary.id_culinary_place JOIN facility_culinary ON detail_facility_culinary.id_facility=facility_culinary.id WHERE tourism.ticket <= $nilai AND facility_culinary.facility LIKE '%$nilai2%' AND angkot.id='$nilai3'";
+	$qsa	="SELECT DISTINCT angkot.id, angkot_color.color FROM tourism JOIN detail_tourism ON tourism.id=detail_tourism.id_tourism JOIN angkot ON detail_tourism.id_angkot=angkot.id JOIN culinary_place ON ST_DistanceSphere(ST_Centroid(tourism.geom), ST_Centroid(culinary_place.geom)) < $rad JOIN detail_facility_culinary ON culinary_place.id=detail_facility_culinary.id_culinary_place JOIN facility_culinary ON detail_facility_culinary.id_facility=facility_culinary.id JOIN angkot_color ON angkot.id_color=angkot_color.id WHERE tourism.ticket <= $nilai AND facility_culinary.facility LIKE '%$nilai2%' AND angkot.id='$nilai3'";
+	$qscp	="SELECT DISTINCT culinary_place.id, culinary_place.name, ST_X(ST_Centroid(culinary_place.geom)) AS lon, ST_Y(ST_Centroid(culinary_place.geom)) AS lat FROM tourism JOIN detail_tourism ON tourism.id=detail_tourism.id_tourism JOIN angkot ON detail_tourism.id_angkot=angkot.id JOIN culinary_place ON ST_DistanceSphere(ST_Centroid(tourism.geom), ST_Centroid(culinary_place.geom)) < $rad JOIN detail_facility_culinary ON culinary_place.id=detail_facility_culinary.id_culinary_place JOIN facility_culinary ON detail_facility_culinary.id_facility=facility_culinary.id WHERE tourism.ticket <= $nilai AND facility_culinary.facility LIKE '%$nilai2%' AND angkot.id='$nilai3'";
 } elseif ($tipe == 14) {
 	$querysearch	="SELECT distinct tourism.id, tourism.name, st_x(st_centroid(tourism.geom)) as lon ,st_y(st_centroid(tourism.geom)) as lat from tourism JOIN tourism_type ON tourism.id_type = tourism_type.id WHERE tourism_type.id = '$nilai' AND tourism.open >= '$nilai2' AND tourism.close <= '$nilai3'";
 } elseif ($tipe == 15) {
@@ -67,6 +70,8 @@ if ($tipe == 1) {
 	$querysearch	="SELECT tourism.id, tourism.name, st_x(st_centroid(tourism.geom)) as lon, st_y(st_centroid(tourism.geom)) as lat from tourism WHERE tourism.address like '%$nilai%' AND tourism.ticket < $nilai2";
 } elseif ($tipe == 19) {
 	$querysearch	="SELECT distinct tourism.id, tourism.name, st_x(st_centroid(tourism.geom)) as lon ,st_y(st_centroid(tourism.geom)) as lat from tourism JOIN detail_tourism ON detail_tourism.id_tourism=tourism.id JOIN detail_worship_place ON detail_tourism.id_angkot=detail_worship_place.id_angkot JOIN angkot ON detail_tourism.id_angkot=angkot.id JOIN worship_place ON detail_worship_place.id_worship_place=worship_place.id JOIN category_worship_place ON worship_place.id_category=category_worship_place.id JOIN detail_facility ON worship_place.id=detail_facility.id_worship_place JOIN facility ON detail_facility.id_facility=facility.id WHERE category_worship_place.id='$nilai' AND facility.name LIKE '%$nilai2%'";
+	$qswp	="SELECT distinct worship_place.id, worship_place.name, st_x(st_centroid(worship_place.geom)) as lon ,st_y(st_centroid(worship_place.geom)) as lat from tourism JOIN detail_tourism ON detail_tourism.id_tourism=tourism.id JOIN detail_worship_place ON detail_tourism.id_angkot=detail_worship_place.id_angkot JOIN angkot ON detail_tourism.id_angkot=angkot.id JOIN worship_place ON detail_worship_place.id_worship_place=worship_place.id JOIN category_worship_place ON worship_place.id_category=category_worship_place.id JOIN detail_facility ON worship_place.id=detail_facility.id_worship_place JOIN facility ON detail_facility.id_facility=facility.id WHERE category_worship_place.id='$nilai' AND facility.name LIKE '%$nilai2%'";
+	$qsa	="SELECT distinct angkot.id, angkot_color.color from tourism JOIN detail_tourism ON detail_tourism.id_tourism=tourism.id JOIN detail_worship_place ON detail_tourism.id_angkot=detail_worship_place.id_angkot JOIN angkot ON detail_tourism.id_angkot=angkot.id JOIN worship_place ON detail_worship_place.id_worship_place=worship_place.id JOIN category_worship_place ON worship_place.id_category=category_worship_place.id JOIN detail_facility ON worship_place.id=detail_facility.id_worship_place JOIN facility ON detail_facility.id_facility=facility.id JOIN angkot_color ON angkot.id_color=angkot_color.id WHERE category_worship_place.id='$nilai' AND facility.name LIKE '%$nilai2%'";
 }
 // var_dump($querysearch);
 // die();
@@ -167,6 +172,18 @@ if(isset($qsr)){ // Restaurant
 		}
 	}
 	$dataarray['restaurant']=$data;
+}
+if(isset($qsa)){ // Restaurant
+	$data = [];
+	$hasil=pg_query($qsa);
+	while($baris = pg_fetch_assoc($hasil)){
+		if($baris['id'] != NULL){
+			$id=$baris['id'];
+			$color=$baris['color'];
+			$data[]=array('id'=>$id, 'color'=>$color);
+		}
+	}
+	$dataarray['angkot']=$data;
 }
 echo json_encode ($dataarray);
 ?>

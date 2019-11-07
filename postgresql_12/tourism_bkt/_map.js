@@ -216,8 +216,8 @@
       *********************************************************************************************************************************************************** */   
 
         function route_angkot_1(id,color){
-          console.log("jalan");      
-          console.log(color);      
+          // console.log("jalan");      
+          // console.log(color);      
               ja = new google.maps.Data();
               ja.loadGeoJson('tampilkanrute.php?id_angkot='+id);
               ja.setStyle(function(feature){
@@ -875,6 +875,7 @@
               rowsi = rows['small_industry'];
               rowso = rows['souvenir'];
               rowr  = rows['restaurant'];
+              rowa  = rows['angkot'];
               
               // FOR TOURISM
               for (var i in rowtw){ 
@@ -1017,6 +1018,14 @@
                   });
                 markersDua.push(marker);
                 klikInfoWindowRes(id,marker);
+              }
+              // FOR Angkot
+              for (var i in rowa){
+                var row   = rowa[i];
+                var id    = row.id;
+                var color = row.color;
+                //Route
+                route_angkot_1(id, color);
               }
           }});//end ajax 
       }
