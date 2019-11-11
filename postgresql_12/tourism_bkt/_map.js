@@ -773,16 +773,45 @@
                   }
                 }
             }
-            console.log(y);
           } else if (tipe == 5) {
             document.getElementById('judul_table').innerHTML="Search tourism by worship place";
-            y = document.getElementById('input_facility').value;   
+            checkboxes  = document.getElementsByName('input_facility[]');
+            var y = "";
+            for (var i=0, n=checkboxes.length;i<n;i++) {
+                if (checkboxes[i].checked) {
+                  if(y==""){
+                    y += checkboxes[i].value;
+                  }else{
+                    y += ","+checkboxes[i].value;
+                  }
+                }
+            }
             z = document.getElementById('inputradius5').value;
             z = z*100;
           } else if (tipe == 6) {
             document.getElementById('judul_table').innerHTML="Search tourism by culinary place";
-            y = document.getElementById('facility_culinary').value;   
-            yy = document.getElementById('culinary').value;
+            checkboxes  = document.getElementsByName('facility_culinary[]');
+            var y = "";
+            for (var i=0, n=checkboxes.length;i<n;i++) {
+                if (checkboxes[i].checked) {
+                  if(y==""){
+                    y += "'"+checkboxes[i].value+"'";
+                  }else{
+                    y += ","+"'"+checkboxes[i].value+"'";
+                  }
+                }
+            } 
+            checkboxes  = document.getElementsByName('culinary[]');
+            var yy = "";
+            for (var i=0, n=checkboxes.length;i<n;i++) {
+                if (checkboxes[i].checked) {
+                  if(yy==""){
+                    yy += "'"+checkboxes[i].value+"'";
+                  }else{
+                    yy += ","+"'"+checkboxes[i].value+"'";
+                  }
+                }
+            } 
             z = document.getElementById('inputradius3').value;
             z = z*100;
           } else if (tipe == 7) {
@@ -793,8 +822,29 @@
             z = z*100;
           } else if (tipe == 8) {
             document.getElementById('judul_table').innerHTML="Search tourism by hotel";
-            y = document.getElementById('h_facility').value;   
-            yy = document.getElementById('h_type').value;
+            checkboxes  = document.getElementsByName('h_facility[]');
+            var y = "";
+            for (var i=0, n=checkboxes.length;i<n;i++) {
+                if (checkboxes[i].checked) {
+                  if(y==""){
+                    y += checkboxes[i].value;
+                  }else{
+                    y += ","+checkboxes[i].value;
+                  }
+                }
+            }
+            checkboxes  = document.getElementsByName('h_type[]');
+            var yy = "";
+            for (var i=0, n=checkboxes.length;i<n;i++) {
+                if (checkboxes[i].checked) {
+                  if(yy==""){
+                    yy += "'"+checkboxes[i].value+"'";
+                  }else{
+                    yy += ","+"'"+checkboxes[i].value+"'";
+                  }
+                }
+            }
+            console.log(y);
             z = document.getElementById('inputradius4').value;
             z = z*100;
           } else if (tipe == 9) {
@@ -851,7 +901,17 @@
           } else if (tipe == 19) {
             document.getElementById('judul_table').innerHTML="Search tourism by Angkot Worship";
             y = document.getElementById('wp_type').value;
-            yy = document.getElementById('wp_facility').value;
+            checkboxes  = document.getElementsByName('wp_facility[]');
+            var yy = "";
+            for (var i=0, n=checkboxes.length;i<n;i++) {
+                if (checkboxes[i].checked) {
+                  if(yy==""){
+                    yy += "'"+checkboxes[i].value+"'";
+                  }else{
+                    yy += ","+"'"+checkboxes[i].value+"'";
+                  }
+                }
+            }
           }
 
           if (y == "") {          

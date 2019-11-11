@@ -126,7 +126,7 @@ sidebar start-->
                                 <li style="margin-top:10px;color:white"><input type="checkbox" name="input_fasility[]" value="<?= $d->id; ?>"> <?= $d->name; ?></li>
                                 <?php
                               }
-                            ?>                           
+                            ?>
                             <li><a onclick="init();cari_tourism(4)" style="cursor:pointer;background:none">Search</a></li>
                           </ul>
                       </li>
@@ -137,11 +137,19 @@ sidebar start-->
                               <label for="inputradius5" style="font-size: 10pt; color:white;">WP Radius : </label>
                               <label  id="rad5"  style="font-size: 10pt; color:white;">0</label ><p style="font-size: 10pt; color:white;display:inline;"> m</p>
                               <input onchange="rad5()" type="range" id="inputradius5" name="inputradius5" data-highlight="true" min="0" max="20" value="0" >
-                            </li>                                 
+                            </li>
                             <li style="margin-top:10px">
                               <label for="input_facility" style="font-size: 10pt; color:white;">WP Facility : </label>
-                              <input id="input_facility" type="text" class="form-control">
-                            </li>                                 
+                            </li>
+                            <?php
+                              $q = "SELECT * FROM facility";
+                              $r = pg_query($q);
+                              while($d=pg_fetch_object($r)){
+                                ?>
+                                <li style="margin-top:10px;color:white"><input type="checkbox" name="input_facility[]" value="<?= $d->id; ?>"> <?= $d->name; ?></li>
+                                <?php
+                              }
+                            ?>
                             <li><a onclick="init();cari_tourism(5)" style="cursor:pointer;background:none">Search</a></li>
                           </ul>
                       </li>
@@ -152,15 +160,31 @@ sidebar start-->
                               <label for="inputradius3" style="font-size: 10pt; color:white;">CP Radius : </label>
                               <label  id="rad3"  style="font-size: 10pt; color:white;">0</label ><p style="font-size: 10pt; color:white;display:inline;"> m</p>
                               <input onchange="rad3()" type="range" id="inputradius3" name="inputradius3" data-highlight="true" min="0" max="20" value="0" >
-                            </li>                                 
+                            </li>
                             <li style="margin-top:10px">
                               <label for="facility_culinary" style="font-size: 10pt; color:white;">CP Facility : </label>
-                              <input id="facility_culinary" type="text" class="form-control">
-                            </li>                                 
+                            </li>
+                            <?php
+                              $q = "SELECT * FROM facility_culinary";
+                              $r = pg_query($q);
+                              while($d=pg_fetch_object($r)){
+                                ?>
+                                <li style="margin-top:10px;color:white"><input type="checkbox" name="facility_culinary[]" value="<?= $d->id; ?>"> <?= $d->facility; ?></li>
+                                <?php
+                              }
+                            ?>
                             <li style="margin-top:10px">
                               <label for="culinary" style="font-size: 10pt; color:white;">CP Culinary : </label>
-                              <input id="culinary" type="text" class="form-control">
-                            </li>                                 
+                            </li>
+                            <?php
+                              $q = "SELECT * FROM culinary";
+                              $r = pg_query($q);
+                              while($d=pg_fetch_object($r)){
+                                ?>
+                                <li style="margin-top:10px;color:white"><input type="checkbox" name="culinary[]" value="<?= $d->id; ?>"> <?= $d->name; ?></li>
+                                <?php
+                              }
+                            ?>
                             <li><a onclick="init();cari_tourism(6)" style="cursor:pointer;background:none">Search</a></li>
                           </ul>
                       </li>
@@ -174,12 +198,28 @@ sidebar start-->
                             </li>                         
                             <li style="margin-top:10px">
                               <label for="h_facility" style="font-size: 10pt; color:white;">Hotel Facility : </label>
-                              <input id="h_facility" type="text" class="form-control">
-                            </li>                                 
+                            </li>
+                            <?php
+                              $q = "SELECT * FROM facility_hotel";
+                              $r = pg_query($q);
+                              while($d=pg_fetch_object($r)){
+                                ?>
+                                <li style="margin-top:10px;color:white"><input type="checkbox" name="h_facility[]" value="<?= $d->id; ?>"> <?= $d->name; ?></li>
+                                <?php
+                              }
+                            ?>
                             <li style="margin-top:10px">
                               <label for="h_type" style="font-size: 10pt; color:white;">Hotel Type : </label>
-                              <input id="h_type" type="text" class="form-control">
-                            </li>                                 
+                            </li>
+                            <?php
+                              $q = "SELECT * FROM hotel_type";
+                              $r = pg_query($q);
+                              while($d=pg_fetch_object($r)){
+                                ?>
+                                <li style="margin-top:10px;color:white"><input type="checkbox" name="h_type[]" value="<?= $d->id; ?>"> <?= $d->name; ?></li>
+                                <?php
+                              }
+                            ?>
                             <li><a onclick="init();cari_tourism(8)" style="cursor:pointer;background:none">Search</a></li>
                           </ul>
                       </li>
@@ -194,11 +234,11 @@ sidebar start-->
                             <li style="margin-top:10px">
                               <label for="district" style="font-size: 10pt; color:white;">Tourism District : </label>
                               <input id="district" type="text" class="form-control">
-                            </li>                                 
+                            </li>
                             <li style="margin-top:10px">
                               <label for="si_type" style="font-size: 10pt; color:white;">SI Type : </label>
                               <input id="si_type" type="text" class="form-control">
-                            </li>                                 
+                            </li>
                             <li><a onclick="init();cari_tourism(7)" style="cursor:pointer;background:none">Search</a></li>
                           </ul>
                       </li>
@@ -213,11 +253,11 @@ sidebar start-->
                             <li style="margin-top:10px">
                               <label for="s_district" style="font-size: 10pt; color:white;">Tourism District : </label>
                               <input id="s_district" type="text" class="form-control">
-                            </li>                                 
+                            </li>
                             <li style="margin-top:10px">
                               <label for="s_type" style="font-size: 10pt; color:white;">Souvenir Type : </label>
                               <input id="s_type" type="text" class="form-control">
-                            </li>                                 
+                            </li>
                             <li><a onclick="init();cari_tourism(9)" style="cursor:pointer;background:none">Search</a></li>
                           </ul>
                       </li>
@@ -232,15 +272,15 @@ sidebar start-->
                             <li style="margin-top:10px">
                               <label for="r_district" style="font-size: 10pt; color:white;">Tourism District : </label>
                               <input id="r_district" type="text" class="form-control">
-                            </li>                                 
+                            </li>
                             <li style="margin-top:10px">
                               <label for="r_type" style="font-size: 10pt; color:white;">Tourism Type : </label>
                               <input id="r_type" type="text" class="form-control">
-                            </li>                                 
+                            </li>
                             <li style="margin-top:10px">
                               <label for="r_cul" style="font-size: 10pt; color:white;">Restaurant Culinary : </label>
                               <input id="r_cul" type="text" class="form-control">
-                            </li>                                 
+                            </li>
                             <li><a onclick="init();cari_tourism(10)" style="cursor:pointer;background:none">Search</a></li>
                           </ul>
                       </li>
@@ -255,11 +295,11 @@ sidebar start-->
                             <li style="margin-top:10px">
                               <label for="r_district2" style="font-size: 10pt; color:white;">Tourism District : </label>
                               <input id="r_district2" type="text" class="form-control">
-                            </li>                                     
+                            </li>    
                             <li style="margin-top:10px">
                               <label for="r_price" style="font-size: 10pt; color:white;">Restaurant Price (<=) : Rp </label>
                               <input id="r_price" type="number" class="form-control">
-                            </li>                                 
+                            </li>
                             <li><a onclick="init();cari_tourism(11)" style="cursor:pointer;background:none">Search</a></li>
                           </ul>
                       </li>
@@ -282,7 +322,7 @@ sidebar start-->
                             <li style="margin-top:10px">
                               <label for="t_facility2" style="font-size: 10pt; color:white;">Tourism Facility : </label>
                               <input id="t_facility2" type="text" class="form-control">
-                            </li>                                 
+                            </li>
                             <li style="margin-top:10px">
                               <label for="angkot" style="font-size: 10pt; color:white;">Angkot : </label>
                               <select name="angkot" id="angkot">
@@ -295,7 +335,7 @@ sidebar start-->
                                   }
                                 ?>
                               </select>
-                            </li>                                 
+                            </li>
                             <li><a onclick="init();cari_tourism(12)" style="cursor:pointer;background:none">Search</a></li>
                           </ul>
                       </li>
@@ -327,7 +367,7 @@ sidebar start-->
                                   }
                                 ?>
                               </select>
-                            </li>                                 
+                            </li>
                             <li><a onclick="init();cari_tourism(13)" style="cursor:pointer;background:none">Search</a></li>
                           </ul>
                       </li>
@@ -437,8 +477,16 @@ sidebar start-->
                             </li>
                             <li style="margin-top:10px">
                               <label for="wp_facility" style="font-size: 10pt; color:white;">Worship Facility : </label>
-                              <input id="wp_facility" type="text" class="form-control">
                             </li>
+                            <?php
+                              $q = "SELECT * FROM facility";
+                              $r = pg_query($q);
+                              while($d=pg_fetch_object($r)){
+                                ?>
+                                <li style="margin-top:10px;color:white"><input type="checkbox" name="wp_facility[]" value="<?= $d->id; ?>"> <?= $d->name; ?></li>
+                                <?php
+                              }
+                            ?>
                             <li><a onclick="init();cari_tourism(19)" style="cursor:pointer;background:none">Search</a></li>
                           </ul>
                       </li>
