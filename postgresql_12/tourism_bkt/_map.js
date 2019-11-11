@@ -762,7 +762,18 @@
             y = document.getElementById('select_jenis').value;   
           } else if (tipe == 4) {
             document.getElementById('judul_table').innerHTML="Search tourism by fasility";
-            y = document.getElementById('input_fasility').value;   
+            checkboxes  = document.getElementsByName('input_fasility[]');
+            var y = "";
+            for (var i=0, n=checkboxes.length;i<n;i++) {
+                if (checkboxes[i].checked) {
+                  if(y==""){
+                    y += "'"+checkboxes[i].value+"'";
+                  }else{
+                    y += ","+"'"+checkboxes[i].value+"'";
+                  }
+                }
+            }
+            console.log(y);
           } else if (tipe == 5) {
             document.getElementById('judul_table').innerHTML="Search tourism by worship place";
             y = document.getElementById('input_facility').value;   

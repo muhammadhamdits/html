@@ -23,7 +23,7 @@ if ($tipe == 1) {
 } elseif ($tipe == 3) {
 	$querysearch	="SELECT tourism.id, tourism.name, st_x(st_centroid(tourism.geom)) as lon ,st_y(st_centroid(tourism.geom)) as lat  from tourism left join tourism_type on tourism_type.id = tourism.id_type where tourism.id_type = '$nilai'";
 } elseif ($tipe == 4) {
-	$querysearch	="SELECT tourism.id, tourism.name, st_x(st_centroid(tourism.geom)) as lon ,st_y(st_centroid(tourism.geom)) as lat  from tourism left join detail_facility_tourism on detail_facility_tourism.id_tourism=tourism.id left join facility_tourism on facility_tourism.id = detail_facility_tourism.id_facility where  LOWER(facility_tourism.name) like '%' || LOWER('$nilai') || '%'  GROUP BY (tourism.id)";
+	$querysearch	="SELECT tourism.id, tourism.name, st_x(st_centroid(tourism.geom)) as lon ,st_y(st_centroid(tourism.geom)) as lat  from tourism left join detail_facility_tourism on detail_facility_tourism.id_tourism=tourism.id left join facility_tourism on facility_tourism.id = detail_facility_tourism.id_facility where  facility_tourism.id = ALL(SELECT id FROM facility_tourism WHERE id IN($nilai)) GROUP BY (tourism.id)";
 } elseif ($tipe == 5) {
 	$querysearch	="SELECT DISTINCT tourism.id, tourism.name, st_x(st_centroid(tourism.geom)) as lon ,st_y(st_centroid(tourism.geom)) as lat FROM worship_place left JOIN detail_facility ON worship_place.id=detail_facility.id_worship_place left JOIN facility ON detail_facility.id_facility=facility.id left JOIN facility_condition ON facility_condition.id=detail_facility.id_facility_condition left JOIN tourism ON ST_DistanceSphere(ST_Centroid(worship_place.geom), ST_Centroid(tourism.geom)) < $rad WHERE LOWER(facility.name) like '%' || LOWER('$nilai') || '%'  ";
 	$qswp = "SELECT distinct worship_place.id, worship_place.name, st_x(st_centroid(worship_place.geom)) as lon ,st_y(st_centroid(worship_place.geom)) as lat  from worship_place left join detail_facility on detail_facility.id_worship_place=worship_place.id left join facility on facility.id = detail_facility.id_facility  JOIN tourism ON ST_DistanceSphere(ST_Centroid(worship_place.geom), ST_Centroid(tourism.geom)) < $rad where LOWER(facility.name) like '%' || LOWER('$nilai') || '%'  GROUP BY (worship_place.id)";
@@ -73,8 +73,7 @@ if ($tipe == 1) {
 	$qswp	="SELECT distinct worship_place.id, worship_place.name, st_x(st_centroid(worship_place.geom)) as lon ,st_y(st_centroid(worship_place.geom)) as lat from tourism JOIN detail_tourism ON detail_tourism.id_tourism=tourism.id JOIN detail_worship_place ON detail_tourism.id_angkot=detail_worship_place.id_angkot JOIN angkot ON detail_tourism.id_angkot=angkot.id JOIN worship_place ON detail_worship_place.id_worship_place=worship_place.id JOIN category_worship_place ON worship_place.id_category=category_worship_place.id JOIN detail_facility ON worship_place.id=detail_facility.id_worship_place JOIN facility ON detail_facility.id_facility=facility.id WHERE category_worship_place.id='$nilai' AND facility.name LIKE '%$nilai2%'";
 	$qsa	="SELECT distinct angkot.id, angkot_color.color from tourism JOIN detail_tourism ON detail_tourism.id_tourism=tourism.id JOIN detail_worship_place ON detail_tourism.id_angkot=detail_worship_place.id_angkot JOIN angkot ON detail_tourism.id_angkot=angkot.id JOIN worship_place ON detail_worship_place.id_worship_place=worship_place.id JOIN category_worship_place ON worship_place.id_category=category_worship_place.id JOIN detail_facility ON worship_place.id=detail_facility.id_worship_place JOIN facility ON detail_facility.id_facility=facility.id JOIN angkot_color ON angkot.id_color=angkot_color.id WHERE category_worship_place.id='$nilai' AND facility.name LIKE '%$nilai2%'";
 }
-// var_dump($querysearch);
-// die();
+// die($querysearch);
 
 $hasil=pg_query($querysearch);
 $dataarray = [];
@@ -173,7 +172,7 @@ if(isset($qsr)){ // Restaurant
 	}
 	$dataarray['restaurant']=$data;
 }
-if(isset($qsa)){ // Restaurant
+if(isset($qsa)){ // Angkot
 	$data = [];
 	$hasil=pg_query($qsa);
 	while($baris = pg_fetch_assoc($hasil)){

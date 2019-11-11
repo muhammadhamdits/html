@@ -98,14 +98,14 @@ sidebar start-->
                             <li style="margin-top:10px">
                             <select class="form-control kota text-center" style="width:100%;margin-top:10px" id="select_jenis">
                               <?php                      
-                              include('../connect.php');    
-                              @$querysearch="SELECT id, name FROM tourism_type"; 
-                              @$hasil=pg_query(@$querysearch);
+                              require_once('../connect.php');    
+                              $querysearch="SELECT id, name FROM tourism_type"; 
+                              $hasil=pg_query($querysearch);
 
-                                while(@$baris = pg_fetch_array(@$hasil)){
-                                    @$id=@$baris['id'];
-                                    @$name=@$baris['name'];
-                                    echo "<option value='@$id'>@$name</option>";
+                                while($baris = pg_fetch_array($hasil)){
+                                    $id=$baris['id'];
+                                    $name=$baris['name'];
+                                    echo "<option value='$id'>$name</option>";
                                 }
                               ?>
                             </select>
@@ -115,9 +115,18 @@ sidebar start-->
                       </li>
 
                       <li class="sub">
-                          <a style="cursor:pointer;background:none"><i class="fa fa-search"></i> By Fasility</a>
+                          <a style="cursor:pointer;background:none"><i class="fa fa-search"></i> By Facility</a>
                           <ul class="sub">
-                            <li style="margin-top:10px"><input id="input_fasility" type="text" class="form-control"></li>                                 
+                            <!-- <li style="margin-top:10px"><input id="input_fasility" type="text" class="form-control"></li> -->   
+                            <?php
+                              $q = "SELECT * FROM facility_tourism";
+                              $r = pg_query($q);
+                              while($d=pg_fetch_object($r)){
+                                ?>
+                                <li style="margin-top:10px;color:white"><input type="checkbox" name="input_fasility[]" value="<?= $d->id; ?>"> <?= $d->name; ?></li>
+                                <?php
+                              }
+                            ?>                           
                             <li><a onclick="init();cari_tourism(4)" style="cursor:pointer;background:none">Search</a></li>
                           </ul>
                       </li>
