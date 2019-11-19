@@ -697,10 +697,10 @@
 
           $('#kanan_table').empty();
           $('#kanan_table').append("<tr><th class='centered'>Tourism Name</th><th class='centered' colspan='3'>Action</th></tr>");
+          console.log(server+'_sekitar_tourism.php?lat='+latitude+'&lng='+longitude+'&rad='+rad);
           $.ajax({url: server+'_sekitar_tourism.php?lat='+latitude+'&lng='+longitude+'&rad='+rad, data: "", dataType: 'json', success: function(rows){ 
             if(rows == null)
             {
-              console.log("xxx");
               alert('Data Did Not Exist !');
             }
             for (var i in rows){ 

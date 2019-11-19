@@ -5,7 +5,7 @@
       <div class="box-body" >
 
       <div class="form-group">
-        <?php if (!isset(@$_GET['user'])){
+        <?php if (!isset($_GET['user'])){
           ?>
         <form class="form-horizontal style-form" role="form" action="act/add_user.php" method="post" >
             

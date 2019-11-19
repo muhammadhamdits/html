@@ -5,9 +5,9 @@
                         <div class="box-body"	>
              
                       <div class="form-group">
-                        <?php if (isset(@$_GET['username'])){
-					$username=@$_GET['username'];
-          $period=@$_GET['stewardship_period'];
+                        <?php if (isset($_GET['username'])){
+					$username=$_GET['username'];
+          $period=$_GET['stewardship_period'];
 					$sql = mysqli_query($conn, "SELECT stewardship_period, name, address, hp, role, username, password FROM admin where username='$username'");
 					$data = mysqli_fetch_array($sql);		
           //echo $data['username'];					
@@ -63,7 +63,7 @@
           <select multiple name="aset[]" id="id" class="form-control">
          
       <?php                         
-      $kuliner=mysqli_query($conn, "SELECT * from hotel where (username is null or username = '@$_GET[username]')"); 
+      $kuliner=mysqli_query($conn, "SELECT * from hotel where (username is null or username = '$_GET[username]')"); 
  
       while($kul = mysqli_fetch_assoc($kuliner)) 
       { 
@@ -78,7 +78,7 @@
         }              
       ?>   
       <?php                         
-      $kuliner=mysqli_query($conn, "SELECT * from tourism where (username is null or username = '@$_GET[username]')"); 
+      $kuliner=mysqli_query($conn, "SELECT * from tourism where (username is null or username = '$_GET[username]')"); 
  
       while($kul = mysqli_fetch_assoc($kuliner)) 
       { 
@@ -93,7 +93,7 @@
         }              
       ?>  
       <?php                         
-      $kuliner=mysqli_query($conn, "SELECT * from culinary_place where (username is null or username = '@$_GET[username]')"); 
+      $kuliner=mysqli_query($conn, "SELECT * from culinary_place where (username is null or username = '$_GET[username]')"); 
  
       while($kul = mysqli_fetch_assoc($kuliner)) 
       { 
@@ -108,7 +108,7 @@
         }              
       ?> 
       <?php                         
-      $souvenir=mysqli_query($conn, "SELECT * from souvenir where (username is null or username = '@$_GET[username]')");
+      $souvenir=mysqli_query($conn, "SELECT * from souvenir where (username is null or username = '$_GET[username]')");
  
       while($sou = mysqli_fetch_assoc($souvenir)) 
       { 
@@ -123,7 +123,7 @@
         }              
       ?>  
       <?php                         
-      $souvenir=mysqli_query($conn, "SELECT * from small_industri where (username is null or username = '@$_GET[username]')");
+      $souvenir=mysqli_query($conn, "SELECT * from small_industri where (username is null or username = '$_GET[username]')");
  
       while($sou = mysqli_fetch_assoc($souvenir)) 
       { 

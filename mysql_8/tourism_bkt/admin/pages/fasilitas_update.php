@@ -3,8 +3,8 @@
         <div class="panel-body">
             <a class="btn btn-compose" style='pointer-events:none'>Add Facility</a>
         	<div class="box-body" >
-				<?php  if (isset(@$_GET['id'])){
-							$id=@$_GET['id'];
+				<?php  if (isset($_GET['id'])){
+							$id=$_GET['id'];
 							$sql = mysqli_query($conn, "SELECT * FROM facility_tourism where id='".$id."'");
 							$data = mysqli_fetch_array($sql)
 						?> 

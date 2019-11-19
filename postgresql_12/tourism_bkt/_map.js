@@ -592,6 +592,7 @@
         function listTourism(){ // Menu Tourism
           //clearangkot();
           hapus_menu();
+          $('.html5gallery').hide();
           $('#view_kanan_table').show();
           document.getElementById('judul_table').innerHTML="List Tourism";
 
@@ -745,6 +746,7 @@
           // console.log("menu jalan")
           hapus_menu();   
           hapus_Semua();
+          $('.html5gallery').hide();
 
           // DEKLARASI
           var y = "";

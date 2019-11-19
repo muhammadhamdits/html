@@ -1,6 +1,6 @@
 <?php 
 session_start();
-if(!isset(@$_SESSION['P'])){
+if(!isset($_SESSION['P'])){
 	echo"<script language='JavaScript'>document.location='login.php'</script>";
   exit();
 }
@@ -52,10 +52,10 @@ include("../../connect.php");?>
       <section class="wrapper">
   		  <div class="row mt">
     			<?php
-      			$p=@$_GET['page'];
+      			$p=$_GET['page'];
       			$page="pages/".$p.".php";
-            $id = @$_GET["id"];
-$id_hotel = @$_SESSION['id'];
+            $id = $_GET["id"];
+$id_hotel = $_SESSION['id'];
       			if(file_exists($page)){
       				include($page);
       			}elseif($p==""){

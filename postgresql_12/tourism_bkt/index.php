@@ -362,15 +362,35 @@ session_start();
       *********************************************************************************************************************************************************** -->                  
                       
                     <!-- DATA TABLE -->
-                      <div id="view_kanan_table" class="col-md-4 col-sm-4 mb" style="margin-top:0px; display:none;">
+                      <div id="view_kanan_table" class="col-md-4 col-sm-4 mb" style="margin-top:0px; display:block;">
                         <div class="white-panel pns" style="height:510px">
                            <div class="white-header" style="height:40px;margin:20px;background:white;color:black">
-                             <h5 class="btn btn-compose" id="judul_table">List Tourism</h5>
+                             <h5 class="btn btn-compose" id="judul_table">Popular Tourism</h5>
                            </div>
                            <div class="row">
                              <div class="col-sm-6 col-xs-6"></div>
                            </div>
                            <div style="height:410px; overflow-y: scroll; margin:20px;">
+                              <div class="html5gallery" style="max-height:700px; overflow:auto; display:block;" data-skin="horizontal" data-width="280" data-resizemode="fit">
+                              <a href='../_foto/tw0012.jpg'><img src='../_foto/tw0012.jpg'></a>
+                              <a href='../_foto/tw0041.jpg'><img src='../_foto/tw0041.jpg'></a>
+                              <a href='../_foto/tw0071.jpg'><img src='../_foto/tw0071.jpg'></a>
+                              <a href='../_foto/tw0112.jpg'><img src='../_foto/tw0112.jpg'></a>
+                              <?php
+                                // $querysearch  ="SELECT a.id, b.gallery_tourism FROM tourism as a left join tourism_gallery as b on a.id=b.id where a.id='tw001' OR a.id='tw002' OR a.id='tw003'";  
+                                // var_dump($querysearch);
+                                // die();
+                                // $hasil=pg_query($querysearch);
+                                // while($baris = pg_fetch_assoc($hasil)){
+                                //   if(($baris['gallery_tourism']=='-')||($baris['gallery_tourism']=='')){
+                                //     echo "<a href='../_foto/foto.jpg'><img src='../_foto/foto.jpg' ></a>";
+                                //   }
+                                //   else{
+                                //     echo "<a href='../_foto/".$baris['gallery_tourism']."'><img src='../_foto/".$baris['gallery_tourism']."'></a>";
+                                //   }
+                                // }
+                              ?>
+                              </div>
                               <table style="color:black" class="table table-bordered">
                                 <tbody id='kanan_table'></tbody>
                               </table>
@@ -508,7 +528,8 @@ session_start();
 
     <!--script for this page-->
     <script src="assets/js/sparkline-chart.js"></script>    
-  	<script src="assets/js/zabuto_calendar.js"></script>	
+  	<script src="assets/js/zabuto_calendar.js"></script>
+    <script type="text/javascript" src="html5gallery/html5gallery.js"></script>
   	
 <script>
 var slideIndex = 1;

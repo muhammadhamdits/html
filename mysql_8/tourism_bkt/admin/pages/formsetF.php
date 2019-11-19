@@ -1,6 +1,6 @@
-<?php if (isset(@$_GET['id'])){
-	$id_tourism=@$_GET['id'];
-	//$id_culinary=@$_GET['id_culinary'];
+<?php if (isset($_GET['id'])){
+	$id_tourism=$_GET['id'];
+	//$id_culinary=$_GET['id_culinary'];
 	//echo $id_tourism;
 ?>
 <section id="container" >
